@@ -6,6 +6,7 @@
       "price": 18000,
       "isAvailable": true,
       "category": "drink",
+      "iconCategory": "https://cdn-icons-png.flaticon.com/512/4329/4329538.png",
       "image": "https://asset.kompas.com/crops/ZTh4OUHf0QScjCBqjcEmGUFnfj0=/0x0:1000x667/750x500/data/photo/2020/10/01/5f74dd72633eb.jpg"
     },
     {
@@ -14,6 +15,7 @@
       "price": 12000,
       "isAvailable": true,
       "category": "drink",
+      "iconCategory": "https://cdn-icons-png.flaticon.com/512/4329/4329538.png",
       "image": "https://thumbs.dreamstime.com/b/espresso-coffee-cup-beans-wooden-background-36989724.jpg"
     },
     {
@@ -22,6 +24,7 @@
       "price": 25000,
       "isAvailable": true,
       "category": "food",
+      "iconCategory": "https://cdn-icons-png.flaticon.com/512/857/857681.png",
       "image": "https://st2.depositphotos.com/1000339/5752/i/600/depositphotos_57527967-stock-photo-burger-and-french-fries.jpg"
     }
   ]

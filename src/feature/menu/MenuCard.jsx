@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, CardActions } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid } from '@material-ui/core';
 
 const MenuCard = (props) => {
   const { title, image, price } = props.data;
@@ -17,12 +18,18 @@ const MenuCard = (props) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button endIcon={<DeleteIcon />} variant="contained" color="error" size="small">
-          delete
-        </Button>
-        <Button endIcon={<EditIcon />} variant="contained" color="success" size="small">
-          edit
-        </Button>
+        <Grid container spacing={1}>
+          <Grid item xs={6}>
+            <Button fullWidth endIcon={<DeleteIcon />} variant="contained" color="error" size="small">
+              delete
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button fullWidth endIcon={<EditIcon />} variant="contained" color="success" size="small">
+              edit
+            </Button>
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );

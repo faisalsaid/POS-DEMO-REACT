@@ -1,11 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import './App.css';
+// feature - pages
+import Dashboard from './components/feature/dashboard/Dashboard';
+import Menu from './components/feature/menu/Menu';
+import Main from './components/layout/Main';
 
 function App() {
   return (
-    <div className="App">
-      halo
-    </div>
+    <>
+      <Router>
+        <Main>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="*" element={<h1>Page Not Found</h1>} />
+          </Routes>
+        </Main>
+      </Router>
+    </>
   );
 }
 

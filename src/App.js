@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // feature - pages
-import Dashboard from './components/feature/dashboard/Dashboard';
-import Menu from './components/feature/menu/Menu';
+import Dashboard from './feature/dashboard/Dashboard';
+import Menu from './feature/menu/Menu';
 import Main from './components/layout/Main';
 
 function App() {

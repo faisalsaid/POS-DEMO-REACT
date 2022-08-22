@@ -2,11 +2,10 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
-import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, CardActions } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, Box, Paper } from '@mui/material';
+
 import MenuCard from './MenuCard';
-// import { Card } from '@material-ui/core';
+import MenuCategoriesCard from './MenuCategoriesCard';
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const Menu = () => {
     return self.indexOf(value) === index;
   };
 
-  // !important [DON'T DELETE] = this function to get uniq singgel array from arry of object
+  // !important [DON'T DELETE] = this function to get uniq singgel array from array of object
   // const menuCategories = [...new Set(data.map((item) => item.category))];
 
   // !important [DON'T DELETE] this function to get unic object from array of object depends the key of object
@@ -24,6 +23,38 @@ const Menu = () => {
   useEffect(() => {
     dispatch(fetchAllMenu());
   }, []);
+
+  const trigerFilterCategory = (data) => {
+    console.log(data);
+  };
+
+  const categoryCardAll = (
+    <Paper
+      sx={{
+        padding: '.5rem',
+
+        // bgcolor: 'success.light',
+        '&:hover': {
+          bgcolor: 'success.light',
+        },
+      }}
+    >
+      <Box
+        component={'div'}
+        sx={{
+          backgroundImage: 'url(https://cdn-icons.flaticon.com/png/512/738/premium/738079.png?token=exp=1661163091~hmac=9f2cde47a9c2e6c083344818bb17f097)',
+          height: '4rem',
+          width: '4rem',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          marginBottom: '.5rem',
+        }}
+      ></Box>
+      <Button size="small" onClick={() => trigerFilterCategory('all')}>
+        All
+      </Button>
+    </Paper>
+  );
 
   return (
     <>
@@ -34,15 +65,9 @@ const Menu = () => {
           <p>No Data : {error}</p>
         ) : (
           <Stack direction={'row'} spacing={2}>
+            {categoryCardAll}
             {newData.map((menu) => (
-              <Card key={menu.id}>
-                <CardMedia component="img" image={menu.iconCategory} height="60" alt="vietnam drip" />
-                <CardContent>
-                  <Typography variant="body1" color="secondary">
-                    {menu.category}
-                  </Typography>
-                </CardContent>
-              </Card>
+              <MenuCategoriesCard key={menu.id} data={menu} click={trigerFilterCategory} />
             ))}
           </Stack>
         )}

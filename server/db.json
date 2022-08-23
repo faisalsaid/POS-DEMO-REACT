@@ -39,6 +39,14 @@
       "isAvailable": true,
       "category": "food",
       "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
+    },
+    {
+      "id": "bnzXgRNQ5RhOa4P5O4XHjbPkP",
+      "title": "Expresso",
+      "price": 55,
+      "isAvailable": true,
+      "category": "drink",
+      "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
     }
   ]
 }

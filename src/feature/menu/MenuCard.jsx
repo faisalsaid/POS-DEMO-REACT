@@ -3,6 +3,7 @@ import { Card, CardMedia, CardContent, Typography, Button, CardActions, Grid } f
 import { useDispatch } from 'react-redux';
 import { fetchAllMenu } from './menuSlice';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,6 +17,23 @@ const MenuCard = (props) => {
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
   console.log(dialogData);
+
+  const heandleDeleteButton = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteMenu(id);
+        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+      }
+    });
+  };
 
   const deleteMenu = (id) => {
     return axios
@@ -57,7 +75,7 @@ const MenuCard = (props) => {
       <CardActions>
         <Grid container spacing={1}>
           <Grid item xs={6}>
-            <Button onClick={() => deleteMenu(id)} fullWidth endIcon={<DeleteIcon />} variant="contained" color="error" size="small">
+            <Button onClick={() => heandleDeleteButton(id)} fullWidth endIcon={<DeleteIcon />} variant="contained" color="error" size="small">
               delete
             </Button>
           </Grid>

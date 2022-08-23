@@ -17,6 +17,8 @@ import {
   Autocomplete,
   Grid,
 } from '@mui/material';
+import { makeId } from '../../utilty/utility';
+
 import CloseIcon from '@mui/icons-material/Close';
 
 const InputMenuDialog = (props) => {
@@ -27,7 +29,7 @@ const InputMenuDialog = (props) => {
   } = props;
 
   const [formValue, setFormValue] = useState({
-    id: 100,
+    id: makeId(25),
     title: '',
     price: 0,
     isAvailable: true,

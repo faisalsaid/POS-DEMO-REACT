@@ -1,7 +1,7 @@
 {
   "menu": [
     {
-      "id": 1,
+      "id": "z5BUR8zF0qZSU5quUNJizz8dm",
       "title": "Vietnam Drip",
       "price": 18000,
       "isAvailable": true,
@@ -9,7 +9,7 @@
       "image": "https://asset.kompas.com/crops/ZTh4OUHf0QScjCBqjcEmGUFnfj0=/0x0:1000x667/750x500/data/photo/2020/10/01/5f74dd72633eb.jpg"
     },
     {
-      "id": 2,
+      "id": "QltdiKUABU8dQpVDDS1spaCfk",
       "title": "Burger",
       "price": 25000,
       "isAvailable": true,
@@ -17,36 +17,12 @@
       "image": "https://st2.depositphotos.com/1000339/5752/i/600/depositphotos_57527967-stock-photo-burger-and-french-fries.jpg"
     },
     {
-      "id": 3,
+      "id": "zPux2CfYQZqQ3xJy6q2rhvhxy",
       "title": "Black Coffee",
       "price": 12000,
       "isAvailable": true,
       "category": "drink",
       "image": "https://thumbs.dreamstime.com/b/espresso-coffee-cup-beans-wooden-background-36989724.jpg"
-    },
-    {
-      "id": "QltdiKUABU8dQpVDDS1spaCfk",
-      "title": "Lamet",
-      "price": "1500",
-      "isAvailable": true,
-      "category": "snack",
-      "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
-    },
-    {
-      "id": "8f4RutgTKDu2zCZ5kjcOV64oI",
-      "title": "Kondro",
-      "price": 45000,
-      "isAvailable": true,
-      "category": "food",
-      "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
-    },
-    {
-      "id": "bnzXgRNQ5RhOa4P5O4XHjbPkP",
-      "title": "Expresso",
-      "price": 55,
-      "isAvailable": true,
-      "category": "drink",
-      "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
     }
   ]
 }

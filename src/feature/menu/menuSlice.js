@@ -45,12 +45,15 @@ export const menuSlice = createSlice({
     // post a menu
     builder.addCase(postMenu.pending, (state, { payload }) => {
       console.log('postMenu.pending');
+      fetchAllMenu('all');
     });
     builder.addCase(postMenu.fulfilled, (state, { payload }) => {
       console.log('postMenu.fulfilled');
+      fetchAllMenu('all');
     });
     builder.addCase(postMenu.rejected, (state, action) => {
       console.log('postMenu.rejected');
+      fetchAllMenu('all');
     });
   },
 });

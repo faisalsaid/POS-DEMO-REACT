@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllMenu } from './menuSlice';
+import { fetchAllMenu, testingMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
 import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, Box, Paper } from '@mui/material';
 
@@ -21,11 +21,13 @@ const Menu = () => {
   const newData = [...new Map(data.map((item) => [item['category'], item])).values()];
 
   useEffect(() => {
-    dispatch(fetchAllMenu());
+    dispatch(fetchAllMenu('all'));
   }, []);
 
   const trigerFilterCategory = (data) => {
-    console.log(data);
+    dispatch(fetchAllMenu(data));
+    // dispatch(testingMenu(data));
+    // console.log(data);
   };
 
   const categoryCardAll = (

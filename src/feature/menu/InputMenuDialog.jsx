@@ -52,6 +52,24 @@ const InputMenuDialog = (props) => {
   const [categoryValue, setCategoryValue] = useState('');
   const [categoryInputValue, setCategoryInputValue] = useState('');
 
+  const postMenu = (payload) => {
+    console.log(payload);
+    return axios
+      .post(`${process.env.REACT_APP_API_SOURCE}menu`, payload)
+      .then((resp) => {
+        console.log(resp.data);
+        dispatch(fetchAllMenu('all'));
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your work has been add',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => err.message);
+  };
+
   const updateMenu = (payload) => {
     const { id, ...exp } = payload;
     const newPayload = exp;
@@ -82,7 +100,7 @@ const InputMenuDialog = (props) => {
     } else {
       const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue, id: makeId(25) };
       console.log({ payload });
-      dispatch(postMenu(payload));
+      postMenu(payload);
 
       onClose();
     }

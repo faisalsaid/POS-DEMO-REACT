@@ -56,18 +56,23 @@ const InputMenuDialog = (props) => {
   return (
     <Dialog sx={{}} open={open}>
       <DialogTitle sx={{ padding: '12px' }}>
-        {title}
-        <IconButton
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-          }}
-          onClick={() => onClose()}
-        >
-          <CloseIcon />
-        </IconButton>
+        <Stack direction={'row'} spacing={1}>
+          <IconButton size="small">{icon}</IconButton>
+          <Typography variant="h6" component={'div'} color={'primary'}>
+            {title}
+          </Typography>
+          <IconButton
+            sx={{
+              position: 'absolute',
+              right: 8,
+              top: 8,
+              color: (theme) => theme.palette.grey[500],
+            }}
+            onClick={() => onClose()}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Stack>
       </DialogTitle>
       <Divider />
       <Box

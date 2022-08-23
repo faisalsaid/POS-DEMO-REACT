@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllMenu, testingMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
 import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, Box, Paper } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 
 import MenuCard from './MenuCard';
 import MenuCategoriesCard from './MenuCategoriesCard';
 import InputMenuDialog from './InputMenuDialog';
+import AddIcon from '@mui/icons-material/Add';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 const Menu = () => {
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
@@ -27,7 +28,7 @@ const Menu = () => {
     setOpenAddMenuDialog(true);
     setDialogData({
       title: 'Add New Menu',
-      icon: <AddIcon />,
+      icon: <FastfoodIcon color="primary" />,
     });
   };
   const heandleAddMenuDialogClose = (fromDialog) => {

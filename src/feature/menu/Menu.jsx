@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllMenu, testingMenu } from './menuSlice';
+import { fetchAllMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
-import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, Box, Paper } from '@mui/material';
+import { Stack, Divider, Button } from '@mui/material';
 
 import MenuCard from './MenuCard';
 import MenuCategoriesCard from './MenuCategoriesCard';

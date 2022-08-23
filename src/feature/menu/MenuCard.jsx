@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, CardActions, Grid } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchAllMenu } from './menuSlice';
 import axios from 'axios';
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardMedia, CardContent, Typography, Button, CardActions, Grid } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllMenu } from './menuSlice';
 import axios from 'axios';
 
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,6 +10,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import InputMenuDialog from './InputMenuDialog';
 
 const MenuCard = (props) => {
+  const dispatch = useDispatch();
   const { title, image, price, id } = props.data;
 
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
@@ -17,7 +20,7 @@ const MenuCard = (props) => {
   const deleteMenu = (id) => {
     return axios
       .delete(`${process.env.REACT_APP_API_SOURCE}menu/${id}`)
-      .then((resp) => alert('berhasil'))
+      .then((resp) => dispatch(fetchAllMenu('all')))
       .catch((err) => console.log(err.message));
   };
 

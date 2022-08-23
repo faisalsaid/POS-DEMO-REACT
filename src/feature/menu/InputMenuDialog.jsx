@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeId } from '../../utilty/utility';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllMenu } from './menuSlice';
 import { postMenu } from './menuSlice';
 
 import {
@@ -57,7 +58,10 @@ const InputMenuDialog = (props) => {
     console.log({ newPayload });
     return axios
       .put(`${process.env.REACT_APP_API_SOURCE}menu/${payload.id}`, newPayload)
-      .then((resp) => console.log(resp))
+      .then((resp) => {
+        console.log(resp);
+        dispatch(fetchAllMenu('all'));
+      })
       .catch((err) => console.log(err.message));
   };
 
@@ -65,13 +69,14 @@ const InputMenuDialog = (props) => {
     if (isEdit) {
       const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue };
       console.log({ payload });
-      // dispatch(postMenu(payload));
+
       updateMenu(payload);
       onClose();
     } else {
       const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue, id: makeId(25) };
       console.log({ payload });
       dispatch(postMenu(payload));
+
       onClose();
     }
   };

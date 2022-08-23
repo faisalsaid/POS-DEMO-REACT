@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllMenu, testingMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
 import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, Box, Paper } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 import MenuCard from './MenuCard';
 import MenuCategoriesCard from './MenuCategoriesCard';
+import InputMenuDialog from './InputMenuDialog';
 
 const category = [
   {
@@ -22,18 +24,16 @@ const category = [
   },
 ];
 
+// !important [DON'T DELETE] = this function to get uniq singgel array from array of object
+// const menuCategories = [...new Set(data.map((item) => item.category))];
+
+// !important [DON'T DELETE] this function to get unic object from array of object depends the key of object
+// const newData = [...new Map(data.map((item) => [item['category'], item])).values()];
+
 const Menu = () => {
+  const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state.menu.menu);
-  const onlyUnique = (value, index, self) => {
-    return self.indexOf(value) === index;
-  };
-
-  // !important [DON'T DELETE] = this function to get uniq singgel array from array of object
-  // const menuCategories = [...new Set(data.map((item) => item.category))];
-
-  // !important [DON'T DELETE] this function to get unic object from array of object depends the key of object
-  const newData = [...new Map(data.map((item) => [item['category'], item])).values()];
 
   useEffect(() => {
     dispatch(fetchAllMenu('all'));
@@ -43,33 +43,13 @@ const Menu = () => {
     dispatch(fetchAllMenu(data));
   };
 
-  const categoryCardAll = (
-    <Paper
-      sx={{
-        padding: '.5rem',
-
-        // bgcolor: 'success.light',
-        '&:hover': {
-          bgcolor: 'success.light',
-        },
-      }}
-    >
-      <Box
-        component={'div'}
-        sx={{
-          backgroundImage: 'url(https://cdn-icons.flaticon.com/png/512/738/premium/738079.png?token=exp=1661163091~hmac=9f2cde47a9c2e6c083344818bb17f097)',
-          height: '4rem',
-          width: '4rem',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          marginBottom: '.5rem',
-        }}
-      ></Box>
-      <Button size="small" onClick={() => trigerFilterCategory('all')}>
-        All
-      </Button>
-    </Paper>
-  );
+  const heandleAddMenuDialogOpen = () => {
+    setOpenAddMenuDialog(true);
+  };
+  const heandleAddMenuDialogClose = (fromDialog) => {
+    console.log({ fromDialog });
+    setOpenAddMenuDialog(false);
+  };
 
   return (
     <>
@@ -80,13 +60,26 @@ const Menu = () => {
           <p>No Data : {error}</p>
         ) : (
           <Stack direction={'row'} spacing={2}>
-            {/* {categoryCardAll} */}
             {category.map((category) => (
               <MenuCategoriesCard key={category.name} data={category} click={trigerFilterCategory} />
             ))}
           </Stack>
         )}
 
+        <Divider />
+        <Stack direction={'row'} spacing={2}>
+          <Button
+            sx={{
+              marginLeft: 'auto',
+            }}
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={heandleAddMenuDialogOpen}
+          >
+            Add New Menu
+          </Button>
+          <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} />
+        </Stack>
         <Divider />
         <Stack direction={'row'} spacing={2}>
           {isLoading ? <h1>...Loading</h1> : error !== '' ? <p>No Data : {error}</p> : isLoading ? <h1>...Loading</h1> : data.map((menu) => <MenuCard key={menu.id} data={menu} />)}

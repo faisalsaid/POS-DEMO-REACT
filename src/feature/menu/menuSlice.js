@@ -4,7 +4,6 @@ import axios from 'axios';
 // fetch data all menu from API
 
 export const fetchAllMenu = createAsyncThunk('menu/fetchAllMenu', (data) => {
-  console.log(data);
   const filter = data === 'all' ? '' : `?category=${data}`;
   return axios.get(`${process.env.REACT_APP_API_SOURCE}menu${filter}`).then((resp) => resp.data);
 });

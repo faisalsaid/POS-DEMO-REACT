@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, Box, Typography, Button } from '@mui/material';
 
 const MenuCategoriesCard = (props) => {
-  const { category, iconCategory } = props.data;
+  const { name, icon } = props.data;
 
   //   const handleClick = (data) => {
   //     props.click(data);
@@ -21,7 +21,7 @@ const MenuCategoriesCard = (props) => {
       <Box
         component={'div'}
         sx={{
-          backgroundImage: `url(${iconCategory})`,
+          backgroundImage: `url(${icon})`,
           height: '4rem',
           width: '4rem',
           backgroundRepeat: 'no-repeat',
@@ -29,8 +29,8 @@ const MenuCategoriesCard = (props) => {
           marginBottom: '.5rem',
         }}
       ></Box>
-      <Button size="small" onClick={() => props.click(category)}>
-        {category}
+      <Button size="small" onClick={() => props.click(name)}>
+        {name}
       </Button>
     </Paper>
   );

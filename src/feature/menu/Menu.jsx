@@ -7,6 +7,21 @@ import { Stack, Divider, Card, CardMedia, CardContent, Typography, Button, Box, 
 import MenuCard from './MenuCard';
 import MenuCategoriesCard from './MenuCategoriesCard';
 
+const category = [
+  {
+    name: 'all',
+    icon: 'https://cdn-icons.flaticon.com/png/512/738/premium/738079.png?token=exp=1661163091~hmac=9f2cde47a9c2e6c083344818bb17f097',
+  },
+  {
+    name: 'food',
+    icon: 'https://cdn-icons-png.flaticon.com/512/857/857681.png',
+  },
+  {
+    name: 'drink',
+    icon: 'https://cdn-icons-png.flaticon.com/512/4329/4329538.png',
+  },
+];
+
 const Menu = () => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state.menu.menu);
@@ -26,8 +41,6 @@ const Menu = () => {
 
   const trigerFilterCategory = (data) => {
     dispatch(fetchAllMenu(data));
-    // dispatch(testingMenu(data));
-    // console.log(data);
   };
 
   const categoryCardAll = (
@@ -67,9 +80,9 @@ const Menu = () => {
           <p>No Data : {error}</p>
         ) : (
           <Stack direction={'row'} spacing={2}>
-            {categoryCardAll}
-            {newData.map((menu) => (
-              <MenuCategoriesCard key={menu.id} data={menu} click={trigerFilterCategory} />
+            {/* {categoryCardAll} */}
+            {category.map((category) => (
+              <MenuCategoriesCard key={category.name} data={category} click={trigerFilterCategory} />
             ))}
           </Stack>
         )}

@@ -3,6 +3,7 @@ import { makeId } from '../../utilty/utility';
 import { useDispatch } from 'react-redux';
 import { fetchAllMenu } from './menuSlice';
 import { postMenu } from './menuSlice';
+import Swal from 'sweetalert2';
 
 import {
   Box,
@@ -56,10 +57,17 @@ const InputMenuDialog = (props) => {
     const newPayload = exp;
     console.log({ newPayload });
     return axios
-      .put(`${process.env.REACT_APP_API_SOURCE}menu/${payload.id}`, newPayload)
+      .put(`${process.env.REACT_APP_API_SOURCE}menu/${id}`, newPayload)
       .then((resp) => {
         console.log(resp);
         dispatch(fetchAllMenu('all'));
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       })
       .catch((err) => console.log(err.message));
   };

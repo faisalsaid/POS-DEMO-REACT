@@ -23,14 +23,17 @@ import {
 } from '@mui/material';
 
 import CloseIcon from '@mui/icons-material/Close';
+import axios from 'axios';
 
 const InputMenuDialog = (props) => {
   const dispatch = useDispatch();
   const {
     open,
     onClose,
-    data: { title, icon },
+    data: { title, icon, isEdit = false, menuInfo },
   } = props;
+
+  isEdit && console.log({ menuInfo });
 
   const [formValue, setFormValue] = useState({
     id: '',
@@ -41,21 +44,44 @@ const InputMenuDialog = (props) => {
     image: 'https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg',
   });
 
+  // isEdit && setFormValue(menuInfo);
+
   const [menuName, setMenuName] = useState('');
   const [price, setPrice] = useState(0);
   const [categoryValue, setCategoryValue] = useState('');
   const [categoryInputValue, setCategoryInputValue] = useState('');
 
+  const updateMenu = (payload) => {
+    const { id, ...exp } = payload;
+    const newPayload = exp;
+    console.log({ newPayload });
+    return axios
+      .put(`${process.env.REACT_APP_API_SOURCE}menu/${payload.id}`, newPayload)
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err.message));
+  };
+
   const handleSubmit = (e) => {
-    const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue, id: makeId(25) };
-    console.log({ payload });
-    dispatch(postMenu(payload));
-    onClose();
+    if (isEdit) {
+      const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue };
+      console.log({ payload });
+      // dispatch(postMenu(payload));
+      updateMenu(payload);
+      onClose();
+    } else {
+      const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue, id: makeId(25) };
+      console.log({ payload });
+      dispatch(postMenu(payload));
+      onClose();
+    }
   };
 
   useEffect(() => {
-    console.log({ formValue });
-  }, [formValue]);
+    isEdit && setFormValue(menuInfo);
+    isEdit && setMenuName(menuInfo.title);
+    isEdit && setPrice(menuInfo.price);
+  }, [isEdit]);
+
   return (
     <Dialog sx={{}} open={open}>
       <DialogTitle sx={{ padding: '12px' }}>
@@ -125,7 +151,6 @@ const InputMenuDialog = (props) => {
               </FormControl>
             </Grid>
           </Grid>
-          {/* <TextField size="small" fullWidth id="category" label="Category" variant="outlined" type={'number'} aria-label="category" /> */}
         </Stack>
       </Box>
       <Divider />
@@ -135,7 +160,7 @@ const InputMenuDialog = (props) => {
             Cancel
           </Button>
           <Button type="submit" onClick={handleSubmit} variant="contained">
-            Add Menu
+            {isEdit ? 'Edit Menu' : 'Add Menu'}
           </Button>
         </Stack>
       </Box>

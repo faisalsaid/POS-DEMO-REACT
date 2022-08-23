@@ -1,18 +1,43 @@
-import React from 'react';
-import { Card, CardMedia, CardContent, Typography, Button, CardActions } from '@mui/material';
+import React, { useState } from 'react';
+import { Card, CardMedia, CardContent, Typography, Button, CardActions, Grid } from '@mui/material';
+import axios from 'axios';
+
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Grid } from '@material-ui/core';
-import axios from 'axios';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import InputMenuDialog from './InputMenuDialog';
 
 const MenuCard = (props) => {
   const { title, image, price, id } = props.data;
 
+  const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
+  const [dialogData, setDialogData] = useState({});
+  console.log(dialogData);
+
   const deleteMenu = (id) => {
     return axios
       .delete(`${process.env.REACT_APP_API_SOURCE}menu/${id}`)
-      .then((resp) => console.log(resp))
+      .then((resp) => alert('berhasil'))
       .catch((err) => console.log(err.message));
+  };
+
+  const heandleAddMenuDialogOpen = () => {
+    setOpenAddMenuDialog(true);
+    setDialogData({
+      isEdit: true,
+      title: 'Edit Menu',
+      icon: <FastfoodIcon color="primary" />,
+      menuInfo: props.data,
+    });
+  };
+  const heandleAddMenuDialogClose = (fromDialog) => {
+    setOpenAddMenuDialog(false);
+    setDialogData({});
+  };
+
+  const handleEditButton = () => {
+    console.log('data');
+    heandleAddMenuDialogOpen();
   };
 
   return (
@@ -34,9 +59,10 @@ const MenuCard = (props) => {
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button fullWidth endIcon={<EditIcon />} variant="contained" color="success" size="small">
+            <Button onClick={handleEditButton} fullWidth endIcon={<EditIcon />} variant="contained" color="success" size="small">
               edit
             </Button>
+            <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
           </Grid>
         </Grid>
       </CardActions>

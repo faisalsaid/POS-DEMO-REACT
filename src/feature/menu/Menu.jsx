@@ -11,9 +11,9 @@ import AddIcon from '@mui/icons-material/Add';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 
 const Menu = () => {
-  const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state.menu.menu);
+  const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
 
   useEffect(() => {

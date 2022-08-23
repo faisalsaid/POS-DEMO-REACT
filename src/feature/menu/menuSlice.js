@@ -9,6 +9,7 @@ export const fetchAllMenu = createAsyncThunk('menu/fetchAllMenu', (data) => {
 });
 
 export const postMenu = createAsyncThunk('menu/postMenu', (payload) => {
+  console.log('from slice', { payload });
   return axios.post(`${process.env.REACT_APP_API_SOURCE}menu`, payload).then((resp) => resp.data);
 });
 

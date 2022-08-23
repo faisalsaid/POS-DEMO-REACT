@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { makeId } from '../../utilty/utility';
+import { useSelector, useDispatch } from 'react-redux';
+import { postMenu } from './menuSlice';
+
 import {
   Box,
   Button,
@@ -17,11 +21,11 @@ import {
   Autocomplete,
   Grid,
 } from '@mui/material';
-import { makeId } from '../../utilty/utility';
 
 import CloseIcon from '@mui/icons-material/Close';
 
 const InputMenuDialog = (props) => {
+  const dispatch = useDispatch();
   const {
     open,
     onClose,
@@ -29,12 +33,12 @@ const InputMenuDialog = (props) => {
   } = props;
 
   const [formValue, setFormValue] = useState({
-    id: makeId(25),
+    id: '',
     title: '',
     price: 0,
     isAvailable: true,
     category: '',
-    image: '',
+    image: 'https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg',
   });
 
   const [menuName, setMenuName] = useState('');
@@ -43,12 +47,9 @@ const InputMenuDialog = (props) => {
   const [categoryInputValue, setCategoryInputValue] = useState('');
 
   const handleSubmit = (e) => {
-    setFormValue({
-      ...formValue,
-      title: menuName,
-      price,
-      category: categoryValue,
-    });
+    const payload = { ...formValue, title: menuName, price: parseInt(price), category: categoryValue, id: makeId(25) };
+    console.log({ payload });
+    dispatch(postMenu(payload));
     onClose();
   };
 

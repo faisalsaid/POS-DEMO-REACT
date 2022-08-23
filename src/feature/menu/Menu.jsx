@@ -66,7 +66,7 @@ const Menu = () => {
           <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
         </Stack>
         <Divider />
-        <Stack direction={'row'} spacing={2}>
+        <Stack flexWrap={'wrap'} direction="row" justifyContent="flex-start" alignItems="flex-start" sx={{ gap: '1rem' }}>
           {isLoading ? <h1>...Loading</h1> : error !== '' ? <p>No Data : {error}</p> : isLoading ? <h1>...Loading</h1> : data.map((menu) => <MenuCard key={menu.id} data={menu} />)}
         </Stack>
       </Stack>

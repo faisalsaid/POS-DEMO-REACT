@@ -23,6 +23,22 @@
       "isAvailable": true,
       "category": "drink",
       "image": "https://thumbs.dreamstime.com/b/espresso-coffee-cup-beans-wooden-background-36989724.jpg"
+    },
+    {
+      "id": "QltdiKUABU8dQpVDDS1spaCfk",
+      "title": "Lamet",
+      "price": "1500",
+      "isAvailable": true,
+      "category": "snack",
+      "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
+    },
+    {
+      "id": "8f4RutgTKDu2zCZ5kjcOV64oI",
+      "title": "Kondro",
+      "price": 45000,
+      "isAvailable": true,
+      "category": "food",
+      "image": "https://png.pngtree.com/element_our/png/20180930/food-icon-design-vector-png_120564.jpg"
     }
   ]
 }

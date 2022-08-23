@@ -7,7 +7,7 @@ import { Grid } from '@material-ui/core';
 const MenuCard = (props) => {
   const { title, image, price } = props.data;
   return (
-    <Card sx={{ maxWidth: 250 }}>
+    <Card sx={{ width: 200 }}>
       <CardMedia component="img" height="140" image={image} alt="vietnam drip" />
       <CardContent>
         <Typography color="secondary" gutterBottom variant="h5" component="div">

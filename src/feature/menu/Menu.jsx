@@ -77,7 +77,7 @@ const Menu = () => {
 const category = [
   {
     name: 'all',
-    icon: 'https://cdn-icons.flaticon.com/png/512/738/premium/738079.png?token=exp=1661163091~hmac=9f2cde47a9c2e6c083344818bb17f097',
+    icon: 'https://cdn-icons-png.flaticon.com/512/2776/2776827.png',
   },
   {
     name: 'food',

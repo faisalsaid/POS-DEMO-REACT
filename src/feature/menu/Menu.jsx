@@ -9,6 +9,7 @@ import MenuCategoriesCard from './MenuCategoriesCard';
 import InputMenuDialog from './InputMenuDialog';
 import AddIcon from '@mui/icons-material/Add';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
+import SkelCardMenuCategory from '../../components/skeleton/components/SkelCardMenuCategory';
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -66,6 +67,7 @@ const Menu = () => {
           <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
         </Stack>
         <Divider />
+
         <Stack flexWrap={'wrap'} direction="row" justifyContent="flex-start" alignItems="flex-start" sx={{ gap: '1rem' }}>
           {isLoading ? <h1>...Loading</h1> : error !== '' ? <p>No Data : {error}</p> : isLoading ? <h1>...Loading</h1> : data.map((menu) => <MenuCard key={menu.id} data={menu} />)}
         </Stack>

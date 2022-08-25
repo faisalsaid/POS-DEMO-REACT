@@ -67,17 +67,17 @@ const Order = () => {
                 width: '100%',
                 backgroundColor: 'whitesmoke',
                 minHeight: '100px',
-                maxHeight: '210px',
+                height: '330px',
                 padding: '.8rem',
                 overflowY: 'scroll',
               }}
             >
-              Lorem
+              list
             </Box>
             <Divider />
             <Stack direction={'row'} justifyContent="space-between">
               <Typography variant="h6" component={'div'}>
-                TOTAL :
+                Total Amount :
               </Typography>
               <Typography variant="h4" component={'div'}>
                 Rp. 500.000,-

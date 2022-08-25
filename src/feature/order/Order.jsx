@@ -3,6 +3,16 @@ import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from 
 import AddIcon from '@mui/icons-material/Add';
 
 const Order = () => {
+  // handle list menu card
+
+  const addOrder = (index) => {
+    alert(index);
+  };
+
+  const handleButtonOrder = (index) => {
+    addOrder(index);
+  };
+
   return (
     <>
       <Grid container spacing={2}>
@@ -17,13 +27,15 @@ const Order = () => {
         >
           <Stack spacing={1}>
             <Stack direction={'row'} spacing={1}>
-              {category.map((category) => (
+              {category.map((category, index) => (
                 <Stack
+                  key={index}
                   spacing={1}
                   sx={{
                     bgcolor: 'whitesmoke',
                     borderRadius: '4px',
                     padding: '.8rem',
+                    flexWrap: 'wrap',
                   }}
                 >
                   <Box
@@ -43,18 +55,22 @@ const Order = () => {
             <Divider />
             <Stack
               sx={{
-                width: 'auto',
+                // width: '100%',
+                flexWrap: 'wrap',
+                gap: '1rem',
               }}
               direction={'row'}
-              spacing={1}
             >
-              {arr1.map((menu) => (
+              {arr1.map((menu, index) => (
                 <Stack
+                  key={index}
                   spacing={1}
+                  index={index}
                   sx={{
                     bgcolor: 'whitesmoke',
                     borderRadius: '4px',
-                    width: '180px',
+                    width: '160px',
+                    maxWidth: '160px',
                   }}
                 >
                   <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}></Box>
@@ -71,7 +87,7 @@ const Order = () => {
                       Rp.25.000,-
                     </Typography>
 
-                    <Button startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
+                    <Button onClick={() => handleButtonOrder(index)} startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
                       Order
                     </Button>
                   </Stack>
@@ -173,6 +189,6 @@ const Order = () => {
 };
 
 const category = [{ label: 'all' }, { label: 'Food' }, { label: 'Drink' }, { label: 'Snack' }];
-const arr1 = ['satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu'];
+const arr1 = ['satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu'];
 
 export default Order;

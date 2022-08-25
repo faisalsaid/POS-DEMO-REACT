@@ -1,41 +1,115 @@
 import React from 'react';
 import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 const Order = () => {
   return (
     <>
       <Grid container spacing={2}>
+        {/* MENU SIDE  */}
         <Grid
           item
           sx={{
             height: '85vh',
-
             overflowY: 'scroll',
           }}
           xs={6}
         >
-          <Box>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam qui autem eum perspiciatis. Ad facere sequi quasi eaque animi sapiente expedita eligendi eius nobis
-            temporibus ullam, nulla, quas reprehenderit quos esse amet dolores, laudantium incidunt officia necessitatibus corrupti? Nisi laboriosam enim ipsum recusandae non quae,
-            ipsam alias doloribus repudiandae obcaecati dicta minus, voluptatum libero earum quos. Autem cupiditate impedit possimus repudiandae natus at quisquam explicabo,
-            quaerat illo quam nisi minus illum ad reprehenderit quis vitae minima. Temporibus iusto maiores repellat vero, omnis odio itaque possimus debitis. Nostrum alias
-            explicabo corporis impedit facere molestias a esse vel, voluptates, temporibus tenetur doloremque, accusamus expedita ducimus blanditiis distinctio tempore dolorem?
-            Obcaecati sint a quasi corrupti ipsum eligendi. Voluptatibus nostrum doloremque, maxime facilis maiores ea dolorum amet atque ab, sapiente minus quidem totam assumenda
-            adipisci! Eaque totam perferendis provident inventore voluptate similique iure necessitatibus iste nostrum dolor eius facere, eveniet iusto nihil quibusdam obcaecati in
-            sapiente perspiciatis consectetur laborum hic officia aperiam! Eos animi illo exercitationem obcaecati doloremque quia itaque corporis eius molestiae, reiciendis omnis
-            fuga commodi ut cupiditate nostrum error culpa! Dolores porro quis, consectetur numquam aliquam distinctio possimus laboriosam? Hic in accusantium corrupti, nihil
-            laudantium possimus consequatur quia iure ipsum doloribus nisi harum necessitatibus alias repudiandae fuga ipsa sunt eius rem facere ullam minima. Reprehenderit odio
-            ratione delectus hic veniam atque ab iure corporis sint aut animi dignissimos quo ex velit quis perferendis porro ipsum maiores, molestiae id sequi. Sed delectus nobis
-            non doloremque quos veritatis hic? Rerum, aspernatur fuga fugit quasi non quisquam nostrum voluptates similique debitis, ullam nulla atque ducimus nihil doloribus eaque
-            molestias praesentium tenetur a, delectus illum. Adipisci dolor quibusdam necessitatibus, velit sequi expedita amet placeat vel beatae porro non nostrum architecto!
-            Saepe veritatis dicta a modi animi tempora consectetur sit ipsum distinctio quasi, eaque, quibusdam dignissimos laudantium deleniti cupiditate. Eum a, illum voluptates
-            recusandae expedita doloremque perspiciatis sequi ratione, consequuntur maiores possimus aut quas temporibus quisquam fugit delectus. Itaque, enim nesciunt
-            necessitatibus est adipisci voluptas repudiandae, praesentium animi, at magnam veritatis facilis. Vel eaque accusantium sit odit sed. Dolorum ipsa, error ullam
-            explicabo cupiditate doloremque deserunt modi corporis quod totam omnis expedita animi laborum commodi. Sed, voluptas ducimus! Laborum quas enim dolorum qui debitis
-            atque delectus sed magni maxime, incidunt, beatae tempore porro animi eius sint nemo eaque ipsum! Est quas eveniet, harum dolor quaerat, consequuntur laborum sint
-            provident sunt omnis quis fugiat delectus eos totam perspiciatis.
-          </Box>
+          <Stack spacing={1}>
+            <Stack direction={'row'} spacing={1}>
+              {category.map((category) => (
+                <Stack
+                  spacing={1}
+                  sx={{
+                    bgcolor: 'whitesmoke',
+                    borderRadius: '4px',
+                    padding: '.8rem',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: '80px',
+                      aspectRatio: '1/1',
+                      bgcolor: '#ddd',
+                      borderRadius: '100%',
+                    }}
+                  ></Box>
+                  <Typography textAlign={'center'} variant="body2">
+                    {category.label}
+                  </Typography>
+                </Stack>
+              ))}
+            </Stack>
+            <Divider />
+            <Stack
+              sx={{
+                width: 'auto',
+              }}
+              direction={'row'}
+              spacing={1}
+            >
+              {arr1.map((menu) => (
+                <Stack
+                  spacing={1}
+                  sx={{
+                    bgcolor: 'whitesmoke',
+                    borderRadius: '4px',
+                    width: '180px',
+                  }}
+                >
+                  <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}></Box>
+                  <Stack
+                    spacing={1}
+                    sx={{
+                      padding: '1rem',
+                    }}
+                  >
+                    <Typography variant="h6" component={'p'}>
+                      {'Menu Title'}
+                    </Typography>
+                    <Typography variant="body" component={'p'}>
+                      Rp.25.000,-
+                    </Typography>
+
+                    <Button startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
+                      Order
+                    </Button>
+                  </Stack>
+                </Stack>
+              ))}
+              <Stack
+                spacing={1}
+                sx={{
+                  bgcolor: 'whitesmoke',
+                  borderRadius: '4px',
+                  width: '180px',
+                }}
+              >
+                <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}></Box>
+                <Stack
+                  spacing={1}
+                  sx={{
+                    padding: '1rem',
+                  }}
+                >
+                  <Typography variant="h6" component={'p'}>
+                    {'Menu Title'}
+                  </Typography>
+                  <Typography variant="body" component={'p'}>
+                    Rp.25.000,-
+                  </Typography>
+
+                  <Button startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
+                    Order
+                  </Button>
+                </Stack>
+              </Stack>
+            </Stack>
+          </Stack>
         </Grid>
+        {/* MENU SIDE END   */}
+
+        {/* ORDER LIST SIDE */}
         <Grid
           item
           sx={{
@@ -92,9 +166,13 @@ const Order = () => {
             </Stack>
           </Stack>
         </Grid>
+        {/* ORDER LIST SIDE END */}
       </Grid>
     </>
   );
 };
+
+const category = [{ label: 'all' }, { label: 'Food' }, { label: 'Drink' }, { label: 'Snack' }];
+const arr1 = ['satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu'];
 
 export default Order;

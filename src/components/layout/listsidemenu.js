@@ -12,4 +12,9 @@ export const listSideMenu = [
     icon: <RestaurantMenuIcon />,
     path: '/menu',
   },
+  {
+    name: 'Order',
+    icon: <RestaurantMenuIcon />,
+    path: '/order',
+  },
 ];

@@ -1,10 +1,9 @@
 import React from 'react';
-import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from '@mui/material';
+import { Box, Typography, Stack, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 const OrderMenuCard = (props) => {
-  console.log(props);
-  const { addOrder, index, data } = props;
+  const { addOrder, data } = props;
 
   return (
     <>
@@ -31,7 +30,7 @@ const OrderMenuCard = (props) => {
             Rp.25.000,-
           </Typography>
 
-          <Button onClick={() => addOrder(data)} startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
+          <Button onClick={() => addOrder(data)} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
             Order
           </Button>
         </Stack>

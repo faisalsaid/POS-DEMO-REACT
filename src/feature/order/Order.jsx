@@ -84,7 +84,7 @@ const Order = () => {
           <Box
             sx={{
               padding: '.5rem',
-              backgroundColor: 'secondary.dark',
+              backgroundColor: 'success.dark',
             }}
           >
             <Typography color={'white'} variant="body" component={'div'}>
@@ -98,7 +98,7 @@ const Order = () => {
             spacing={1}
           >
             <TextField size="small" label="Order Ref" name="order-ref" id="order-ref" type={'text'} defaultValue={'2345-XDR-1208'} disabled />
-            <TextField color="secondary" size="small" label="Customer" name="customer" id="customer" type={'text'} />
+            <TextField color="success" size="small" label="Customer" name="customer" id="customer" type={'text'} />
             <Box
               sx={{
                 width: '100%',
@@ -109,8 +109,8 @@ const Order = () => {
                 overflowY: 'scroll',
               }}
             >
-              {listOrder.map((list) => (
-                <h1>add list UI here</h1>
+              {listOrder.map((list, index) => (
+                <h1 key={index}>add list UI here</h1>
               ))}
             </Box>
             <Divider />
@@ -125,7 +125,7 @@ const Order = () => {
             <Divider />
             <Stack direction={'row'} justifyContent="space-between" spacing={1}>
               <Typography variant="caption">* Final Price Includes Tax</Typography>
-              <Button color="secondary" variant="contained" size="large">
+              <Button color="success" variant="contained" size="large">
                 PROCESS
               </Button>
             </Stack>

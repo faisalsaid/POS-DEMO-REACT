@@ -3,7 +3,11 @@ import { Box, Typography, Stack, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 const OrderMenuCard = (props) => {
-  const { addOrder, data } = props;
+  const {
+    addOrder,
+    data,
+    data: { name, price },
+  } = props;
 
   return (
     <>
@@ -23,11 +27,11 @@ const OrderMenuCard = (props) => {
             padding: '1rem',
           }}
         >
-          <Typography variant="h6" component={'p'}>
-            {'Menu Title'}
-          </Typography>
           <Typography variant="body" component={'p'}>
-            Rp.25.000,-
+            {name}
+          </Typography>
+          <Typography variant="body2" component={'p'}>
+            Rp.{price},-
           </Typography>
 
           <Button onClick={() => addOrder(data)} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>

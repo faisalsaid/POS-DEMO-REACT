@@ -19,8 +19,11 @@ import ListItemText from '@mui/material/ListItemText';
 import { listSideMenu } from './listsidemenu';
 import { useNavigate } from 'react-router-dom';
 
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+
 const drawerWidth = 240;
 
+const date = new Date();
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -114,9 +117,13 @@ const Main = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
+          <IconButton color="inherit">
+            <StoreMallDirectoryIcon />
+          </IconButton>
           <Typography variant="h6" noWrap component="div">
             POS OF RESTAURANT
           </Typography>
+          <Typography sx={{ marginLeft: 'auto' }}>{new Date().toDateString()}</Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

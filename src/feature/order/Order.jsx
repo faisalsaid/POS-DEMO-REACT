@@ -5,7 +5,7 @@ import OrderMenuCard from './OrderMenuCard';
 
 const Order = () => {
   const [listOrder, setListOrder] = useState([]);
-  console.log(listOrder);
+  console.log({ listOrder });
 
   // handle list menu card
 
@@ -109,9 +109,15 @@ const Order = () => {
                 overflowY: 'scroll',
               }}
             >
-              {listOrder.map((list, index) => (
-                <h1 key={index}>add list UI here</h1>
-              ))}
+              {listOrder.length === 0 ? (
+                <p>No Order</p>
+              ) : (
+                listOrder.map((list, index) => (
+                  <p key={index}>
+                    {list.name} | {list.price}
+                  </p>
+                ))
+              )}
             </Box>
             <Divider />
             <Stack direction={'row'} justifyContent="space-between">

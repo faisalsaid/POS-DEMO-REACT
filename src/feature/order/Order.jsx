@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+
+import OrderMenuCard from './OrderMenuCard';
 
 const Order = () => {
+  const [listOrder, setListOrder] = useState([]);
+  console.log(listOrder);
+
   // handle list menu card
 
   const addOrder = (index) => {
-    alert(index);
-  };
-
-  const handleButtonOrder = (index) => {
-    addOrder(index);
+    setListOrder([...listOrder, index]);
   };
 
   return (
@@ -53,6 +53,8 @@ const Order = () => {
               ))}
             </Stack>
             <Divider />
+
+            {/* MAP ITEM MENU */}
             <Stack
               sx={{
                 // width: '100%',
@@ -62,65 +64,10 @@ const Order = () => {
               direction={'row'}
             >
               {arr1.map((menu, index) => (
-                <Stack
-                  key={index}
-                  spacing={1}
-                  index={index}
-                  sx={{
-                    bgcolor: 'whitesmoke',
-                    borderRadius: '4px',
-                    width: '160px',
-                    maxWidth: '160px',
-                  }}
-                >
-                  <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}></Box>
-                  <Stack
-                    spacing={1}
-                    sx={{
-                      padding: '1rem',
-                    }}
-                  >
-                    <Typography variant="h6" component={'p'}>
-                      {'Menu Title'}
-                    </Typography>
-                    <Typography variant="body" component={'p'}>
-                      Rp.25.000,-
-                    </Typography>
-
-                    <Button onClick={() => handleButtonOrder(index)} startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
-                      Order
-                    </Button>
-                  </Stack>
-                </Stack>
+                <OrderMenuCard key={index} index={index} data={menu} addOrder={addOrder} />
               ))}
-              <Stack
-                spacing={1}
-                sx={{
-                  bgcolor: 'whitesmoke',
-                  borderRadius: '4px',
-                  width: '180px',
-                }}
-              >
-                <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}></Box>
-                <Stack
-                  spacing={1}
-                  sx={{
-                    padding: '1rem',
-                  }}
-                >
-                  <Typography variant="h6" component={'p'}>
-                    {'Menu Title'}
-                  </Typography>
-                  <Typography variant="body" component={'p'}>
-                    Rp.25.000,-
-                  </Typography>
-
-                  <Button startIcon={<AddIcon />} size="large" color="secondary" variant="contained" fullWidth>
-                    Order
-                  </Button>
-                </Stack>
-              </Stack>
             </Stack>
+            {/* MAP ITEM MENU END */}
           </Stack>
         </Grid>
         {/* MENU SIDE END   */}
@@ -162,7 +109,9 @@ const Order = () => {
                 overflowY: 'scroll',
               }}
             >
-              list
+              {listOrder.map((list) => (
+                <h1>add list UI here</h1>
+              ))}
             </Box>
             <Divider />
             <Stack direction={'row'} justifyContent="space-between">
@@ -189,6 +138,10 @@ const Order = () => {
 };
 
 const category = [{ label: 'all' }, { label: 'Food' }, { label: 'Drink' }, { label: 'Snack' }];
-const arr1 = ['satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu', 'satu'];
+const arr1 = [
+  { name: 'Ayam Goreng', price: 45000, category: 'food' },
+  { name: 'Kopi Hitam', price: 45000, category: 'drink' },
+  { name: 'Jus Mengkudu', price: 45000, category: 'drink' },
+];
 
 export default Order;

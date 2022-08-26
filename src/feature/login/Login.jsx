@@ -1,4 +1,5 @@
 import { Grid, Stack, Box, TextField, Typography, Divider, Button } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
 import React from 'react';
 
 const Login = () => {
@@ -9,14 +10,14 @@ const Login = () => {
           spacing={2}
           sx={{ padding: '1rem', border: '.1px solid rgba(0,0,0,0.1)', bgcolor: 'whitesmoke', borderRadius: '1rem', width: '400px', boxShadow: '1px 3px 12px rgba(0,0,0,0.1)' }}
         >
-          <Typography variant="h5" component={'h1'}>
+          <Typography color={'success'} variant="h3" component={'h1'}>
             Login
           </Typography>
 
           <TextField color={'success'} fullWidth type={'text'} label={'User Name'} bot />
           <TextField color={'success'} fullWidth type={'email'} label={'Email'} />
           <TextField color={'success'} fullWidth type={'password'} label={'Password'} />
-          <Button type={'submit'} color="success">
+          <Button startIcon={<LoginIcon />} variant={'contained'} type={'submit'} color="success">
             Login
           </Button>
         </Stack>

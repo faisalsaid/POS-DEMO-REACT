@@ -10,8 +10,6 @@ export const mainLayoutSlice = createSlice({
   reducers: {
     setOpenDrawer: (state, action) => {
       state.drawerOpen = !state.drawerOpen;
-      console.log(action.payload);
-      console.log(state.drawerOpen);
     },
   },
 });

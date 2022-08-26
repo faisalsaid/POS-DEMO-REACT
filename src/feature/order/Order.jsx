@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from '@mui/material';
 
 import OrderMenuCard from './OrderMenuCard';
+import Main from '../../components/layout/Main';
 
 const Order = () => {
   const [listOrder, setListOrder] = useState([]);
@@ -14,7 +15,7 @@ const Order = () => {
   };
 
   return (
-    <>
+    <Main>
       <Grid container spacing={2}>
         {/* MENU SIDE  */}
         <Grid
@@ -139,7 +140,7 @@ const Order = () => {
         </Grid>
         {/* ORDER LIST SIDE END */}
       </Grid>
-    </>
+    </Main>
   );
 };
 

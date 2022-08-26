@@ -1,7 +1,8 @@
 import React from 'react';
+import Main from '../../components/layout/Main';
 
 const Menu = () => {
-  return <div>Menu</div>;
+  return <Main>Menu</Main>;
 };
 
 export default Menu;

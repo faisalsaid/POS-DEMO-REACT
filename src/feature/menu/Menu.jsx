@@ -4,6 +4,7 @@ import { fetchAllMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
 import { Stack, Divider, Button } from '@mui/material';
 
+import Main from '../../components/layout/Main';
 import MenuCard from './MenuCard';
 import MenuCategoriesCard from './MenuCategoriesCard';
 import InputMenuDialog from './InputMenuDialog';
@@ -38,7 +39,7 @@ const Menu = () => {
   };
 
   return (
-    <>
+    <Main>
       <Stack spacing={2}>
         {isLoading ? (
           <h1>...Loading</h1>
@@ -72,7 +73,7 @@ const Menu = () => {
           {isLoading ? <h1>...Loading</h1> : error !== '' ? <p>No Data : {error}</p> : isLoading ? <h1>...Loading</h1> : data.map((menu) => <MenuCard key={menu.id} data={menu} />)}
         </Stack>
       </Stack>
-    </>
+    </Main>
   );
 };
 

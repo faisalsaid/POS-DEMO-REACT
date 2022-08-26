@@ -8,14 +8,13 @@ export const mainLayoutSlice = createSlice({
   name: 'main_layout',
   initialState,
   reducers: {
-    // testingMenu: (state, action) => {
-    //   console.log('testingMenu', action.payload);
-    // },
-    openDrawer: (state, action) => {
+    setOpenDrawer: (state, action) => {
+      state.drawerOpen = !state.drawerOpen;
       console.log(action.payload);
+      console.log(state.drawerOpen);
     },
   },
 });
 
-export const { openDrawer } = mainLayoutSlice.actions;
+export const { setOpenDrawer } = mainLayoutSlice.actions;
 export default mainLayoutSlice.reducer;

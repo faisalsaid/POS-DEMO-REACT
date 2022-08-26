@@ -1,4 +1,4 @@
-import { Grid, Stack, Box, TextField, Typography, Divider, Button } from '@mui/material';
+import { Stack, Box, TextField, Typography, Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import React from 'react';
 
@@ -8,7 +8,14 @@ const Login = () => {
       <Box sx={{ height: '84vh', display: 'grid', justifyContent: 'center', alignContent: 'center' }}>
         <Stack
           spacing={2}
-          sx={{ padding: '1rem', border: '.1px solid rgba(0,0,0,0.1)', bgcolor: 'whitesmoke', borderRadius: '1rem', width: '400px', boxShadow: '1px 3px 12px rgba(0,0,0,0.1)' }}
+          sx={{
+            padding: '1rem',
+            border: '.1px solid rgba(0,0,0,0.1)',
+            bgcolor: '#fafafa',
+            borderRadius: '1rem',
+            width: '400px',
+            boxShadow: '0px 3px 6px 1px rgba(0,0,0,0.1)',
+          }}
         >
           <Typography color={'success'} variant="h3" component={'h1'}>
             Login

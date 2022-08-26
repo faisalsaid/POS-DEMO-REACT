@@ -86,7 +86,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 }));
 
-const Main = ({ children }) => {
+const Main = (props) => {
+  const { children, title } = props;
   const openDrawer = useSelector((state) => state.mainLayout.drawerOpen);
   const dispatch = useDispatch();
   const theme = useTheme();
@@ -115,7 +116,16 @@ const Main = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            POS OF RESTAURANT
+            MyCAFFE
+          </Typography>
+          <Typography
+            sx={{
+              marginLeft: '6px',
+            }}
+            variant="body2"
+          >
+            {' '}
+            / {title}
           </Typography>
         </Toolbar>
       </AppBar>

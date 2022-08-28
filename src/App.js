@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './feature/dashboard/Dashboard';
 import Menu from './feature/menu/Menu';
 import Main from './components/layout/Main';
-import PageNotFound from './feature/dashboard/notfound/PageNotFound';
+import PageNotFound from './feature/notfound/PageNotFound';
 
 function App() {
   return (

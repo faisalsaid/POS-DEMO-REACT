@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './feature/dashboard/Dashboard';
 import Menu from './feature/menu/Menu';
 import Main from './components/layout/Main';
+import PageNotFound from './feature/dashboard/notfound/PageNotFound';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/menu" element={<Menu />} />
-          <Route path="*" element={<h1>Page Not Found</h1>} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </>

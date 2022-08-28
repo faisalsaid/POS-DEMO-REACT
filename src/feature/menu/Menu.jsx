@@ -17,13 +17,15 @@ const Menu = () => {
   const { isLoading, data, error } = useSelector((state) => state.menu.menu);
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
-
+  const [activeCategory, setActiceCategory] = useState('all');
+  console.log(activeCategory);
   useEffect(() => {
     dispatch(fetchAllMenu('all'));
   }, []);
 
   const trigerFilterCategory = (data) => {
     dispatch(fetchAllMenu(data));
+    setActiceCategory(data);
   };
 
   const heandleAddMenuDialogOpen = () => {
@@ -48,7 +50,7 @@ const Menu = () => {
         ) : (
           <Stack direction={'row'} spacing={2}>
             {category.map((category) => (
-              <MenuCategoriesCard key={category.name} data={category} click={trigerFilterCategory} />
+              <MenuCategoriesCard key={category.name} data={category} activeCategory={activeCategory} click={trigerFilterCategory} />
             ))}
           </Stack>
         )}

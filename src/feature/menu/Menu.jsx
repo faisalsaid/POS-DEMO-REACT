@@ -18,7 +18,7 @@ const Menu = () => {
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
   const [activeCategory, setActiceCategory] = useState('all');
-  console.log(activeCategory);
+
   useEffect(() => {
     dispatch(fetchAllMenu('all'));
   }, []);

@@ -16,7 +16,6 @@ const MenuCard = (props) => {
 
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
-  console.log(dialogData);
 
   const heandleDeleteButton = (id) => {
     Swal.fire({

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Grid, Box, Typography, Stack, TextField, Button, Divider } from '@mui/material';
+import { Box, Typography, Stack, TextField, Button, Divider } from '@mui/material';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { useSelector } from 'react-redux';
 
 const initalValues = {
   orderRef: '',
@@ -21,6 +22,8 @@ const validationSchma = yup.object({
 const onSubmit = () => {};
 
 const OrderForm = () => {
+  const listOrder = useSelector((state) => state.order.listOrder);
+
   return (
     <>
       <Box
@@ -51,15 +54,15 @@ const OrderForm = () => {
             overflowY: 'scroll',
           }}
         >
-          {/* {listOrder.length === 0 ? (
+          {listOrder.length === 0 ? (
             <p>No Order</p>
           ) : (
             listOrder.map((list, index) => (
               <p key={index}>
-                {list.name} | {list.price}
+                {list.item.title} | {list.item.price} | {list.quantity} | <b> TOTAL :{list.item.price * list.quantity}</b>
               </p>
             ))
-          )} */}
+          )}
         </Box>
         <Divider />
         <Stack direction={'row'} justifyContent="space-between">

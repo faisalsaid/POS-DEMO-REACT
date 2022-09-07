@@ -5,6 +5,7 @@ import Dashboard from './feature/dashboard/Dashboard';
 import Menu from './feature/menu/Menu';
 import Main from './components/layout/Main';
 import Order from './feature/order/Order';
+import PageNotFound from './feature/notfound/PageNotFound';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/order" element={<Order />} />
-          <Route path="*" element={<h1>Page Not Found</h1>} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </>

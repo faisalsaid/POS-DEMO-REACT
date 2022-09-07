@@ -3,6 +3,7 @@ import { Box, Typography, Stack, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { addListOrder } from './sliceOrder';
 import { useDispatch, useSelector } from 'react-redux';
+import currencyFormatter from 'currency-formatter';
 
 const OrderMenuCard = (props) => {
   const {
@@ -47,7 +48,7 @@ const OrderMenuCard = (props) => {
             {title}
           </Typography>
           <Typography variant="body2" component={'p'}>
-            Rp.{price},-
+            {currencyFormatter.format(price, { code: 'IDR' })}
           </Typography>
 
           <Button disabled={listOrderId.includes(data.id)} onClick={() => handleAddListOrder(data)} startIcon={<AddIcon />} color="success" variant="contained" fullWidth>

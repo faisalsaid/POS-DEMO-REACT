@@ -3,7 +3,8 @@ import { Box, Typography, Stack, TextField, Button, Divider } from '@mui/materia
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addQuantity, bateQuantity } from './sliceOrder';
 
 const initalValues = {
   orderRef: '',
@@ -23,6 +24,7 @@ const onSubmit = () => {};
 
 const OrderForm = () => {
   const listOrder = useSelector((state) => state.order.listOrder);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -59,7 +61,8 @@ const OrderForm = () => {
           ) : (
             listOrder.map((list, index) => (
               <p key={index}>
-                {list.item.title} | {list.item.price} | {list.quantity} | <b> TOTAL :{list.item.price * list.quantity}</b>
+                {list.item.title} | {list.item.price} | <button onClick={() => dispatch(bateQuantity(index))}>-</button> {list.quantity}{' '}
+                <button onClick={() => dispatch(addQuantity(index))}>+</button> |<b> TOTAL :{list.item.price * list.quantity}</b>
               </p>
             ))
           )}

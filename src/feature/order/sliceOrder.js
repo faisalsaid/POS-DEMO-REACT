@@ -25,6 +25,12 @@ const orderSlice = createSlice({
     resetListOder: (state) => {
       state.listOrder = [];
     },
+    addQuantity: (state, { payload }) => {
+      state.listOrder[payload].quantity++;
+    },
+    bateQuantity: (state, { payload }) => {
+      state.listOrder[payload].quantity > 1 && state.listOrder[payload].quantity--;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAllMenu.pending, (state, action) => {
@@ -43,5 +49,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { addListOrder } = orderSlice.actions;
+export const { addListOrder, addQuantity, bateQuantity } = orderSlice.actions;
 export default orderSlice.reducer;

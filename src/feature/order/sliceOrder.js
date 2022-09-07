@@ -20,16 +20,18 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addListOrder: (state, { payload }) => {
-      state.listOrder = [...state.listOrder, { item: payload, quantity: 1 }];
+      state.listOrder = [...state.listOrder, { item: payload, quantity: 1, total: payload.price }];
     },
     resetListOder: (state) => {
       state.listOrder = [];
     },
     addQuantity: (state, { payload }) => {
       state.listOrder[payload].quantity++;
+      state.listOrder[payload].total = state.listOrder[payload].item.price * state.listOrder[payload].quantity;
     },
     bateQuantity: (state, { payload }) => {
       state.listOrder[payload].quantity > 1 && state.listOrder[payload].quantity--;
+      state.listOrder[payload].total = state.listOrder[payload].item.price * state.listOrder[payload].quantity;
     },
   },
   extraReducers: (builder) => {

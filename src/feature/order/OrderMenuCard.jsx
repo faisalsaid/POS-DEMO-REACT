@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Typography, Stack, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { addListOrder } from './sliceOrder';
+import { useDispatch } from 'react-redux';
 
 const OrderMenuCard = (props) => {
   const {
@@ -8,6 +10,8 @@ const OrderMenuCard = (props) => {
     data,
     data: { title, price, image, isAvalible },
   } = props;
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -42,9 +46,12 @@ const OrderMenuCard = (props) => {
             Rp.{price},-
           </Typography>
 
-          <Button onClick={() => addOrder(data)} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
+          <Button onClick={() => dispatch(addListOrder(data))} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
             Order
           </Button>
+          {/* <Button onClick={() => addOrder(data)} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
+            Order
+          </Button> */}
         </Stack>
       </Stack>
     </>

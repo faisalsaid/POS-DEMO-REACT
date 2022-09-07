@@ -12,12 +12,18 @@ const initialState = {
     data: [],
     error: '',
   },
+  listOrder: [],
 };
 
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {},
+  reducers: {
+    addListOrder: (state, { payload }) => {
+      console.log(payload);
+      state.listOrder = [...state.listOrder, payload];
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAllMenu.pending, (state, action) => {
       state.menu.isLoading = true;
@@ -35,4 +41,5 @@ const orderSlice = createSlice({
   },
 });
 
+export const { addListOrder } = orderSlice.actions;
 export default orderSlice.reducer;

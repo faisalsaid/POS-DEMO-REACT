@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -18,9 +18,14 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { listSideMenu } from './listsidemenu';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setOpenDrawer } from './sliceMainLayout';
+
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
 
 const drawerWidth = 240;
 
+const date = new Date();
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -84,28 +89,27 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 }));
 
-const Main = ({ children }) => {
+const Main = (props) => {
+  const { children, title } = props;
+  const openDrawer = useSelector((state) => state.mainLayout.drawerOpen);
+  const dispatch = useDispatch();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(openDrawer);
   const navigate = useNavigate();
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  useEffect(() => {
+    setOpen(openDrawer);
+  }, [openDrawer]);
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar color="success" position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={() => dispatch(setOpenDrawer())}
             edge="start"
             sx={{
               marginRight: 5,
@@ -114,14 +118,27 @@ const Main = ({ children }) => {
           >
             <MenuIcon />
           </IconButton>
+          <IconButton color="inherit">
+            <StoreMallDirectoryIcon />
+          </IconButton>
           <Typography variant="h6" noWrap component="div">
-            POS OF RESTAURANT
+            MyCAFFE
           </Typography>
+          <Typography
+            sx={{
+              marginLeft: '6px',
+            }}
+            variant="body2"
+          >
+            {' '}
+            / {title}
+          </Typography>
+          <Typography sx={{ marginLeft: 'auto' }}>{new Date().toDateString()}</Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
+          <IconButton onClick={() => dispatch(setOpenDrawer())}>{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}</IconButton>
         </DrawerHeader>
         <Divider />
         <List>

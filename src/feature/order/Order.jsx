@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
-import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from '@mui/material';
+import { Grid, Box, Typography, Stack, TextField, Button, Divider } from '@mui/material';
 
 import Main from '../../components/layout/Main';
 import OrderMenuList from './OrderMenuList';
 
-import { Formik } from 'formik';
-import * as yup from 'yup';
+// import { Formik } from 'formik';
+// import * as yup from 'yup';
 
-const initalValues = {
-  orderRef: '',
-  customer: '',
-  orderList: [],
-  totalAmount: 0,
-};
+// const initalValues = {
+//   orderRef: '',
+//   customer: '',
+//   orderList: [],
+//   totalAmount: 0,
+// };
 
-const validationSchma = yup.object({
-  orderRef: yup.string().required('Required'),
-  customer: yup.string().required('Required').min(3, 'Min 3 character'),
-  orderList: yup.array().required(),
-  totalAmount: yup.number().required(),
-});
+// const validationSchma = yup.object({
+//   orderRef: yup.string().required('Required'),
+//   customer: yup.string().required('Required').min(3, 'Min 3 character'),
+//   orderList: yup.array().required(),
+//   totalAmount: yup.number().required(),
+// });
 
-const onSubmit = () => {};
+// const onSubmit = () => {};
 
 const Order = () => {
   const [listOrder, setListOrder] = useState([]);

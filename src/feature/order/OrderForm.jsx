@@ -4,7 +4,7 @@ import { Box, Typography, Stack, TextField, Button, Divider } from '@mui/materia
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { addQuantity, bateQuantity } from './sliceOrder';
+import { addQuantity, bateQuantity, resetListOder } from './sliceOrder';
 
 const initalValues = {
   orderRef: '',
@@ -23,8 +23,8 @@ const validationSchma = yup.object({
 const onSubmit = () => {};
 
 const OrderForm = () => {
-  const listOrder = useSelector((state) => state.order.listOrder);
   const dispatch = useDispatch();
+  const listOrder = useSelector((state) => state.order.listOrder);
 
   return (
     <>
@@ -56,6 +56,9 @@ const OrderForm = () => {
             overflowY: 'scroll',
           }}
         >
+          <button onClick={() => dispatch(resetListOder())}>Reset</button>
+          <br />
+
           {listOrder.length === 0 ? (
             <p>No Order</p>
           ) : (
@@ -73,13 +76,13 @@ const OrderForm = () => {
             Total Amount :
           </Typography>
           <Typography variant="h4" component={'div'}>
-            Rp. 500.000,-
+            Rp. {listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0}
           </Typography>
         </Stack>
         <Divider />
         <Stack direction={'row'} justifyContent="space-between" spacing={1}>
           <Typography variant="caption">* Final Price Includes Tax</Typography>
-          <Button color="success" variant="contained" size="large">
+          <Button color="success" variant="contained">
             PROCESS
           </Button>
         </Stack>

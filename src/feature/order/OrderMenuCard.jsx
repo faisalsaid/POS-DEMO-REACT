@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Stack, Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { addListOrder } from './sliceOrder';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const OrderMenuCard = (props) => {
   const {
@@ -11,6 +11,11 @@ const OrderMenuCard = (props) => {
   } = props;
 
   const dispatch = useDispatch();
+  const listOrderId = useSelector((state) => state.order.listOrder.map((data) => data.item.id));
+
+  const handleAddListOrder = (data) => {
+    !listOrderId.includes(data.id) ? dispatch(addListOrder(data)) : alert(`${data.title} ready add on list order`);
+  };
 
   return (
     <>
@@ -45,7 +50,7 @@ const OrderMenuCard = (props) => {
             Rp.{price},-
           </Typography>
 
-          <Button onClick={() => dispatch(addListOrder(data))} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
+          <Button onClick={() => handleAddListOrder(data)} startIcon={<AddIcon />} color="success" variant="contained" fullWidth>
             Order
           </Button>
         </Stack>

@@ -9,7 +9,7 @@ const Order = () => {
   const [listOrder, setListOrder] = useState([]);
 
   return (
-    <Main>
+    <Main title="Order">
       <Grid container spacing={2}>
         {/* MENU SIDE  */}
         <Grid

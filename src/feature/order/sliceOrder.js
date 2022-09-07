@@ -51,5 +51,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { addListOrder, addQuantity, bateQuantity } = orderSlice.actions;
+export const { addListOrder, addQuantity, bateQuantity, resetListOder } = orderSlice.actions;
 export default orderSlice.reducer;

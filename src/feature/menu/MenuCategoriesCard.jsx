@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Paper, Box, Typography, Button } from '@mui/material';
 
-const MenuCategoriesCard = (props) => {
-  const { name, icon } = props.data;
+const MenuCategoriesCard = ({ data, activeCategory, click }) => {
+  const [isActive, setIsActive] = useState(false);
+  const { name, icon } = data;
 
-  //   const handleClick = (data) => {
-  //     props.click(data);
-  //   };
+  useEffect(() => {
+    name === activeCategory ? setIsActive(true) : setIsActive(false);
+  }, [activeCategory]);
+
   return (
     <Paper
       sx={{
         padding: '.5rem',
+        // bgcolor: isActive && 'success.light',
+        border: isActive && '2px solid green',
 
         // bgcolor: 'success.light',
         '&:hover': {
@@ -29,7 +33,7 @@ const MenuCategoriesCard = (props) => {
           marginBottom: '.5rem',
         }}
       ></Box>
-      <Button size="small" onClick={() => props.click(name)}>
+      <Button variant={isActive && 'contained'} color="success" size="small" onClick={() => !isActive && click(name)}>
         {name}
       </Button>
     </Paper>

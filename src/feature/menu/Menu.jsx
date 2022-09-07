@@ -4,18 +4,21 @@ import { fetchAllMenu } from './menuSlice';
 import { useState, useEffect } from 'react';
 import { Stack, Divider, Button } from '@mui/material';
 
+import Main from '../../components/layout/Main';
 import MenuCard from './MenuCard';
 import MenuCategoriesCard from './MenuCategoriesCard';
 import InputMenuDialog from './InputMenuDialog';
 import AddIcon from '@mui/icons-material/Add';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import SkelCardMenuCategory from '../../components/skeleton/components/SkelCardMenuCategory';
+import AddMenuFormDialog from './AddMenuFormDialog';
 
 const Menu = () => {
   const dispatch = useDispatch();
   const { isLoading, data, error } = useSelector((state) => state.menu.menu);
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
+  const [activeCategory, setActiceCategory] = useState('all');
 
   useEffect(() => {
     dispatch(fetchAllMenu('all'));
@@ -23,6 +26,7 @@ const Menu = () => {
 
   const trigerFilterCategory = (data) => {
     dispatch(fetchAllMenu(data));
+    setActiceCategory(data);
   };
 
   const heandleAddMenuDialogOpen = () => {
@@ -38,7 +42,7 @@ const Menu = () => {
   };
 
   return (
-    <>
+    <Main>
       <Stack spacing={2}>
         {isLoading ? (
           <h1>...Loading</h1>
@@ -47,7 +51,7 @@ const Menu = () => {
         ) : (
           <Stack direction={'row'} spacing={2}>
             {category.map((category) => (
-              <MenuCategoriesCard key={category.name} data={category} click={trigerFilterCategory} />
+              <MenuCategoriesCard key={category.name} data={category} activeCategory={activeCategory} click={trigerFilterCategory} />
             ))}
           </Stack>
         )}
@@ -64,7 +68,7 @@ const Menu = () => {
           >
             Add New Menu
           </Button>
-          <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
+          <AddMenuFormDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
         </Stack>
         <Divider />
 
@@ -72,7 +76,7 @@ const Menu = () => {
           {isLoading ? <h1>...Loading</h1> : error !== '' ? <p>No Data : {error}</p> : isLoading ? <h1>...Loading</h1> : data.map((menu) => <MenuCard key={menu.id} data={menu} />)}
         </Stack>
       </Stack>
-    </>
+    </Main>
   );
 };
 

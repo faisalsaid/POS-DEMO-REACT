@@ -14,21 +14,19 @@ function App() {
   return (
     <>
       <Router>
-        <Main>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/menu" element={<SkelMenuPage />} /> */}
-            <Route
-              path="/menu"
-              element={
-                <React.Suspense fallback={<SkelMenuPage />}>
-                  <Menu />
-                </React.Suspense>
-              }
-            />
-            <Route path="*" element={<h1>Page Not Found</h1>} />
-          </Routes>
-        </Main>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/menu" element={<SkelMenuPage />} /> */}
+          <Route
+            path="/menu"
+            element={
+              <React.Suspense fallback={<SkelMenuPage />}>
+                <Menu />
+              </React.Suspense>
+            }
+          />
+          <Route path="*" element={<h1>Page Not Found</h1>} />
+        </Routes>
       </Router>
     </>
   );

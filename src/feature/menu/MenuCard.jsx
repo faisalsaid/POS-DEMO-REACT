@@ -16,7 +16,6 @@ const MenuCard = (props) => {
 
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
-  console.log(dialogData);
 
   const heandleDeleteButton = (id) => {
     Swal.fire({
@@ -30,7 +29,13 @@ const MenuCard = (props) => {
     }).then((result) => {
       if (result.isConfirmed) {
         deleteMenu(id);
-        Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your file has been deleted.',
+          showConfirmButton: false,
+          timer: 1500,
+        });
       }
     });
   };

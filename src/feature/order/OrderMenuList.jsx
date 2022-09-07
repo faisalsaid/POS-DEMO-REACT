@@ -8,7 +8,6 @@ import { fetchAllMenu } from './sliceOrder';
 const OrderMenuList = () => {
   const dispatch = useDispatch();
   const listMenu = useSelector((state) => state.order.menu);
-  console.log(listMenu.data);
 
   const [listOrder, setListOrder] = useState([]);
   useEffect(() => {

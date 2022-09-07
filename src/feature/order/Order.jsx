@@ -7,7 +7,6 @@ import OrderForm from './OrderForm';
 
 const Order = () => {
   const [listOrder, setListOrder] = useState([]);
-  console.log({ listOrder });
 
   return (
     <Main>

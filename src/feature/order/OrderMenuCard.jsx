@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 
 const OrderMenuCard = (props) => {
   const {
-    addOrder,
     data,
     data: { title, price, image, isAvalible },
   } = props;
@@ -49,9 +48,6 @@ const OrderMenuCard = (props) => {
           <Button onClick={() => dispatch(addListOrder(data))} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
             Order
           </Button>
-          {/* <Button onClick={() => addOrder(data)} startIcon={<AddIcon />} size="large" color="success" variant="contained" fullWidth>
-            Order
-          </Button> */}
         </Stack>
       </Stack>
     </>

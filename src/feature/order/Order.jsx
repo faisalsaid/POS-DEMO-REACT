@@ -4,6 +4,15 @@ import { Grid, Box, Typography, Stack, TextField, Table, Button, Divider } from 
 import OrderMenuCard from './OrderMenuCard';
 import Main from '../../components/layout/Main';
 
+import { Formik } from 'formik';
+
+const initalValues = {
+  orderRef: '',
+  customer: '',
+  orderList: [],
+  totalAmount: 0,
+};
+
 const Order = () => {
   const [listOrder, setListOrder] = useState([]);
   console.log({ listOrder });

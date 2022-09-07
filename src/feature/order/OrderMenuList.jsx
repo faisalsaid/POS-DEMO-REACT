@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { Box, Typography, Stack, Divider } from '@mui/material';
 import OrderMenuCard from './OrderMenuCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchAllMenu } from './sliceOrder';
 
 const OrderMenuList = () => {
+  const dispatch = useDispatch();
+  const listMenu = useSelector((state) => state.order.menu);
+  console.log(listMenu.data);
+
   const [listOrder, setListOrder] = useState([]);
-  console.log({ listOrder });
+  useEffect(() => {
+    dispatch(fetchAllMenu());
+  }, []);
+
   const addOrder = (index) => {
     setListOrder([...listOrder, index]);
   };

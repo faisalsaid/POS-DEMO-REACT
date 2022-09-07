@@ -19,8 +19,12 @@ const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
+    // HANDLE listOrder
     addListOrder: (state, { payload }) => {
       state.listOrder = [...state.listOrder, { item: payload, quantity: 1, total: payload.price }];
+    },
+    removeListOrder: (state, { payload }) => {
+      state.listOrder.splice(payload, 1);
     },
     resetListOder: (state) => {
       state.listOrder = [];
@@ -33,6 +37,7 @@ const orderSlice = createSlice({
       state.listOrder[payload].quantity > 1 && state.listOrder[payload].quantity--;
       state.listOrder[payload].total = state.listOrder[payload].item.price * state.listOrder[payload].quantity;
     },
+    // HANDLE listOrder END
   },
   extraReducers: (builder) => {
     builder.addCase(fetchAllMenu.pending, (state, action) => {
@@ -51,5 +56,5 @@ const orderSlice = createSlice({
   },
 });
 
-export const { addListOrder, addQuantity, bateQuantity, resetListOder } = orderSlice.actions;
+export const { addListOrder, addQuantity, bateQuantity, resetListOder, removeListOrder } = orderSlice.actions;
 export default orderSlice.reducer;

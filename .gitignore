@@ -25,4 +25,4 @@ yarn-error.log*
 
 #json server
 /server
-db.json
+/server/db.json

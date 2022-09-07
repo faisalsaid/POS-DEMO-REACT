@@ -12,7 +12,7 @@ const OrderMenuList = () => {
 
   const [listOrder, setListOrder] = useState([]);
   useEffect(() => {
-    dispatch(fetchAllMenu());
+    dispatch(fetchAllMenu('all'));
   }, []);
 
   const addOrder = (index) => {
@@ -58,7 +58,7 @@ const OrderMenuList = () => {
         }}
         direction={'row'}
       >
-        {arr1.map((menu, index) => (
+        {listMenu.data.map((menu, index) => (
           <OrderMenuCard key={index} index={index} data={menu} addOrder={addOrder} />
         ))}
       </Stack>

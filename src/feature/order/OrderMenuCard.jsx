@@ -6,7 +6,7 @@ const OrderMenuCard = (props) => {
   const {
     addOrder,
     data,
-    data: { name, price },
+    data: { title, price, image, isAvalible },
   } = props;
 
   return (
@@ -20,7 +20,15 @@ const OrderMenuCard = (props) => {
           maxWidth: '160px',
         }}
       >
-        <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}></Box>
+        <Box sx={{ width: '100%', aspectRatio: '10/6', bgcolor: '#ddd' }}>
+          <img
+            src={image}
+            alt=""
+            style={{
+              width: '100%',
+            }}
+          />
+        </Box>
         <Stack
           spacing={1}
           sx={{
@@ -28,7 +36,7 @@ const OrderMenuCard = (props) => {
           }}
         >
           <Typography variant="body" component={'p'}>
-            {name}
+            {title}
           </Typography>
           <Typography variant="body2" component={'p'}>
             Rp.{price},-

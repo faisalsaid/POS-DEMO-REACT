@@ -50,7 +50,7 @@ const OrderMenuCard = (props) => {
             Rp.{price},-
           </Typography>
 
-          <Button onClick={() => handleAddListOrder(data)} startIcon={<AddIcon />} color="success" variant="contained" fullWidth>
+          <Button disabled={listOrderId.includes(data.id)} onClick={() => handleAddListOrder(data)} startIcon={<AddIcon />} color="success" variant="contained" fullWidth>
             Order
           </Button>
         </Stack>

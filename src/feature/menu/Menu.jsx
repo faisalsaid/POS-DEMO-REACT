@@ -11,6 +11,7 @@ import InputMenuDialog from './InputMenuDialog';
 import AddIcon from '@mui/icons-material/Add';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import SkelCardMenuCategory from '../../components/skeleton/components/SkelCardMenuCategory';
+import AddMenuFormDialog from './AddMenuFormDialog';
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ const Menu = () => {
           >
             Add New Menu
           </Button>
-          <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
+          <AddMenuFormDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
         </Stack>
         <Divider />
 

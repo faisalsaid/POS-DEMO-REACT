@@ -4,7 +4,8 @@ import { Box, Typography, Stack, TextField, Button, Divider } from '@mui/materia
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { addQuantity, bateQuantity } from './sliceOrder';
+import { addQuantity, bateQuantity, resetListOder, removeListOrder } from './sliceOrder';
+import currencyFormatter from 'currency-formatter';
 
 const initalValues = {
   orderRef: '',
@@ -23,8 +24,8 @@ const validationSchma = yup.object({
 const onSubmit = () => {};
 
 const OrderForm = () => {
-  const listOrder = useSelector((state) => state.order.listOrder);
   const dispatch = useDispatch();
+  const listOrder = useSelector((state) => state.order.listOrder);
 
   return (
     <>
@@ -56,13 +57,17 @@ const OrderForm = () => {
             overflowY: 'scroll',
           }}
         >
+          <button onClick={() => dispatch(resetListOder())}>Reset</button>
+          <br />
+
           {listOrder.length === 0 ? (
             <p>No Order</p>
           ) : (
             listOrder.map((list, index) => (
               <p key={index}>
                 {list.item.title} | {list.item.price} | <button onClick={() => dispatch(bateQuantity(index))}>-</button> {list.quantity}{' '}
-                <button onClick={() => dispatch(addQuantity(index))}>+</button> |<b> TOTAL :{list.total}</b>
+                <button onClick={() => dispatch(addQuantity(index))}>+</button> |<b> TOTAL :{currencyFormatter.format(list.total, { code: 'IDR' })}</b> |{' '}
+                <button onClick={() => dispatch(removeListOrder(index))}>remove</button>
               </p>
             ))
           )}
@@ -73,13 +78,13 @@ const OrderForm = () => {
             Total Amount :
           </Typography>
           <Typography variant="h4" component={'div'}>
-            Rp. 500.000,-
+            {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, { code: 'IDR' })}
           </Typography>
         </Stack>
         <Divider />
         <Stack direction={'row'} justifyContent="space-between" spacing={1}>
           <Typography variant="caption">* Final Price Includes Tax</Typography>
-          <Button color="success" variant="contained" size="large">
+          <Button color="success" variant="contained">
             PROCESS
           </Button>
         </Stack>

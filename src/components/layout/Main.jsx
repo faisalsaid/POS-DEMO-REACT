@@ -21,8 +21,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setOpenDrawer } from './sliceMainLayout';
 
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+
 const drawerWidth = 240;
 
+const date = new Date();
 const openedMixin = (theme) => ({
   width: drawerWidth,
   transition: theme.transitions.create('width', {
@@ -101,7 +104,7 @@ const Main = (props) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar color="success" position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -115,6 +118,9 @@ const Main = (props) => {
           >
             <MenuIcon />
           </IconButton>
+          <IconButton color="inherit">
+            <StoreMallDirectoryIcon />
+          </IconButton>
           <Typography variant="h6" noWrap component="div">
             MyCAFFE
           </Typography>
@@ -127,6 +133,7 @@ const Main = (props) => {
             {' '}
             / {title}
           </Typography>
+          <Typography sx={{ marginLeft: 'auto' }}>{new Date().toDateString()}</Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './feature/dashboard/Dashboard';
 // import Menu from './feature/menu/Menu';
 import Main from './components/layout/Main';
+import Order from './feature/order/Order';
 import SkelMenuPage from './components/skeleton/pages/SkelMenuPage';
 import PageNotFound from './feature/notfound/PageNotFound';
 
@@ -17,7 +18,6 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-
           <Route
             path="/menu"
             element={
@@ -26,6 +26,7 @@ function App() {
               </React.Suspense>
             }
           />
+          <Route path="/order" element={<Order />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

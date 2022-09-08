@@ -87,11 +87,11 @@ const OrderForm = () => {
                   <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                       <TableRow>
-                        <TableCell>Item </TableCell>
-                        <TableCell align="right">Price</TableCell>
-                        <TableCell align="right">Quanity</TableCell>
-                        <TableCell align="right">Total</TableCell>
-                        <TableCell align="right">Action</TableCell>
+                        <TableCell>ITEM </TableCell>
+                        <TableCell align="right">PRICE</TableCell>
+                        <TableCell align="right">QANTITY</TableCell>
+                        <TableCell align="right">TOTAL</TableCell>
+                        <TableCell align="right">ACTION</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>

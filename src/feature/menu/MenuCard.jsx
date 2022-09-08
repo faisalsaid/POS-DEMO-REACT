@@ -8,11 +8,12 @@ import Swal from 'sweetalert2';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
+import AddMenuFormDialog from './AddMenuFormDialog';
 import InputMenuDialog from './InputMenuDialog';
 
 const MenuCard = (props) => {
   const dispatch = useDispatch();
-  const { title, image, price, id } = props.data;
+  const { title, image, price, id, category } = props.data;
 
   const [openAddMenuDialog, setOpenAddMenuDialog] = useState(false);
   const [dialogData, setDialogData] = useState({});
@@ -20,7 +21,7 @@ const MenuCard = (props) => {
   const heandleDeleteButton = (id) => {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      html: `You want to remove the <b> ${title} </b>`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -76,6 +77,9 @@ const MenuCard = (props) => {
         <Typography variant="body2" color="text.secondary">
           Rp. {price}
         </Typography>
+        <Typography variant="caption" color="text.secondary">
+          {category}
+        </Typography>
       </CardContent>
       <CardActions>
         <Grid container spacing={1}>
@@ -88,7 +92,7 @@ const MenuCard = (props) => {
             <Button onClick={handleEditButton} fullWidth endIcon={<EditIcon />} variant="contained" color="success" size="small">
               edit
             </Button>
-            <InputMenuDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
+            <AddMenuFormDialog open={openAddMenuDialog} onClose={heandleAddMenuDialogClose} data={dialogData} />
           </Grid>
         </Grid>
       </CardActions>

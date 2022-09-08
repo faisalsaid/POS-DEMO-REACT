@@ -72,9 +72,34 @@ const AddMenuFormDialog = (props) => {
       .catch((err) => err.message);
   };
 
-  const onSubmit = (value) => {
-    postMenu(value);
-    onClose();
+  const updateMenu = (values) => {
+    const { id, ...payload } = values;
+    return axios
+      .put(`${process.env.REACT_APP_API_SOURCE}menu/${id}`, payload)
+      .then((resp) => {
+        console.log(resp);
+        dispatch(fetchAllMenu('all'));
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => console.log(err.message));
+  };
+
+  const onSubmit = (values) => {
+    console.log(values);
+    if (isEdit) {
+      updateMenu(values);
+      onClose();
+    } else {
+      postMenu(values);
+
+      onClose();
+    }
   };
 
   return (
@@ -99,7 +124,7 @@ const AddMenuFormDialog = (props) => {
         </Stack>
       </DialogTitle>
       <Divider />
-      <Formik initialValues={initialValue} onSubmit={onSubmit} validationSchema={validationSchema}>
+      <Formik initialValues={menuInfo || initialValue} onSubmit={onSubmit} validationSchema={validationSchema}>
         {(formik) => {
           const { setFieldValue } = formik;
           return (
@@ -160,7 +185,10 @@ const AddMenuFormDialog = (props) => {
                         name="cicategoryty_id"
                         options={category}
                         getOptionLabel={(option) => option.name}
-                        // style={{ width: 300 }}
+                        getOptionSelected={(item, current) => {
+                          return console.log(item);
+                          console.log(current);
+                        }}
                         size={'small'}
                         onChange={(e, value) => {
                           setFieldValue('category', value !== null ? value.label : initialValue.category);
@@ -176,8 +204,8 @@ const AddMenuFormDialog = (props) => {
                     <Button onClick={() => onClose()} sx={{ marginLeft: 'auto' }} variant="outlined" color="error">
                       Cancel
                     </Button>
-                    <Button disabled={!formik.isValid} type="submit" variant="contained">
-                      {isEdit ? 'Edit Menu' : 'Add Menu'}
+                    <Button disabled={!formik.isValid || formik.isSubmitting} type="submit" variant="contained">
+                      {isEdit ? 'Update Menu' : 'Add Menu'}
                     </Button>
                   </Stack>
                 </Box>

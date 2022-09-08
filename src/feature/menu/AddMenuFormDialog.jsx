@@ -126,6 +126,7 @@ const AddMenuFormDialog = (props) => {
       <Divider />
       <Formik initialValues={menuInfo || initialValue} onSubmit={onSubmit} validationSchema={validationSchema}>
         {(formik) => {
+          // console.log(formik);
           const { setFieldValue } = formik;
           return (
             <>
@@ -180,21 +181,25 @@ const AddMenuFormDialog = (props) => {
                       </Field>
                     </Grid>
                     <Grid item xs={6}>
-                      <Autocomplete
-                        id="category"
-                        name="cicategoryty_id"
-                        options={category}
-                        getOptionLabel={(option) => option.name}
-                        getOptionSelected={(item, current) => {
-                          return console.log(item);
-                          console.log(current);
+                      <Field>
+                        {(data) => {
+                          return (
+                            <Autocomplete
+                              {...data}
+                              id="category"
+                              name="category"
+                              options={category}
+                              getOptionLabel={(option) => option.name}
+                              inputValue={data.form.values.category}
+                              size={'small'}
+                              onChange={(e, value) => {
+                                setFieldValue('category', value !== null ? value.label : initialValue.category);
+                              }}
+                              renderInput={(params) => <TextField label="Category" fullWidth name="category" {...params} />}
+                            />
+                          );
                         }}
-                        size={'small'}
-                        onChange={(e, value) => {
-                          setFieldValue('category', value !== null ? value.label : initialValue.category);
-                        }}
-                        renderInput={(params) => <TextField label="Category" fullWidth name="category" {...params} />}
-                      />
+                      </Field>
                     </Grid>
                   </Grid>
                 </Box>

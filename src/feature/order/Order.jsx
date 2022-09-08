@@ -7,10 +7,9 @@ import OrderForm from './OrderForm';
 
 const Order = () => {
   const [listOrder, setListOrder] = useState([]);
-  console.log({ listOrder });
 
   return (
-    <Main>
+    <Main title="Order">
       <Grid container spacing={2}>
         {/* MENU SIDE  */}
         <Grid

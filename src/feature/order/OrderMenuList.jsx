@@ -8,16 +8,11 @@ import { fetchAllMenu } from './sliceOrder';
 const OrderMenuList = () => {
   const dispatch = useDispatch();
   const listMenu = useSelector((state) => state.order.menu);
-  console.log(listMenu.data);
 
   const [listOrder, setListOrder] = useState([]);
   useEffect(() => {
     dispatch(fetchAllMenu('all'));
   }, []);
-
-  const addOrder = (index) => {
-    setListOrder([...listOrder, index]);
-  };
 
   return (
     <Stack spacing={1}>
@@ -59,7 +54,7 @@ const OrderMenuList = () => {
         direction={'row'}
       >
         {listMenu.data.map((menu, index) => (
-          <OrderMenuCard key={index} index={index} data={menu} addOrder={addOrder} />
+          <OrderMenuCard key={index} index={index} data={menu} />
         ))}
       </Stack>
       {/* MAP ITEM MENU END */}
@@ -70,8 +65,3 @@ const OrderMenuList = () => {
 export default OrderMenuList;
 
 const category = [{ label: 'all' }, { label: 'Food' }, { label: 'Drink' }, { label: 'Snack' }];
-const arr1 = [
-  { name: 'Ayam Goreng', price: 45000, category: 'food' },
-  { name: 'Kopi Hitam', price: 45000, category: 'drink' },
-  { name: 'Jus Mengkudu', price: 45000, category: 'drink' },
-];

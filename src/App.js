@@ -6,6 +6,7 @@ import Dashboard from './feature/dashboard/Dashboard';
 // import Menu from './feature/menu/Menu';
 import Main from './components/layout/Main';
 import SkelMenuPage from './components/skeleton/pages/SkelMenuPage';
+import PageNotFound from './feature/notfound/PageNotFound';
 
 // lazy component
 const Menu = React.lazy(() => import('./feature/menu/Menu'));
@@ -16,7 +17,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          {/* <Route path="/menu" element={<SkelMenuPage />} /> */}
+
           <Route
             path="/menu"
             element={
@@ -25,7 +26,7 @@ function App() {
               </React.Suspense>
             }
           />
-          <Route path="*" element={<h1>Page Not Found</h1>} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </>

@@ -1,43 +1,48 @@
 import React from 'react';
-import { Box, Typography, Stack, TextField, Button, Divider } from '@mui/material';
+import { Box, Typography, Stack, TextField, Button, Divider, IconButton } from '@mui/material';
 
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { addQuantity, bateQuantity, resetListOder, removeListOrder } from './sliceOrder';
 import currencyFormatter from 'currency-formatter';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const OrderForm = () => {
   const dispatch = useDispatch();
   const listOrder = useSelector((state) => state.order.listOrder);
 
   const initialValues = {
-    // ref order format [4randomstring]-[3firstcustomername]-[date]
-    // exp juXu-nam-1208
-    orderRef: 'juXu-nam-1208',
     customer: '',
-    orderList: [],
-    totalAmount: 0,
   };
 
   const validationSchema = yup.object({
-    // orderRef: yup.string().required('Required'),
-    // customer: yup.string().required('Required').min(3, 'Min 3 character'),
-    // orderList: yup.array().required(),
-    // totalAmount: yup.number().required(),
+    customer: yup.string().required('Required').min(3, 'Min 3 character'),
   });
 
   const onSubmit = (value, props) => {
-    console.log('SUBMIT', value);
+    const payload = {
+      ...value,
+      listOrder,
+      totalAmount: listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0,
+      orderRef: 'ffds-nam-2012',
+    };
+    console.log(payload);
+    props.setSubmitting(false);
+    dispatch(resetListOder());
+    props.resetForm({ value: '' });
   };
 
   const onReset = (value, props) => {
-    console.log('RESET', value);
+    props.setSubmitting(false);
+    dispatch(resetListOder());
   };
 
   return (
     <>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onReset={onReset} onSubmit={onSubmit}>
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onReset={onReset} onSubmit={onSubmit} enableReinitialize>
         {(formik) => {
           return (
             <Form>
@@ -47,12 +52,14 @@ const OrderForm = () => {
                   backgroundColor: 'success.dark',
                 }}
               >
-                <Typography color={'white'} variant="body" component={'div'}>
-                  Order List
-                </Typography>
-                <Button type="reset" color="error" variant="contained">
-                  Reset
-                </Button>
+                <Stack direction={'row'} justifyContent="space-between" alignItems={'center'}>
+                  <Typography color={'white'} variant="body" component={'div'}>
+                    Order List
+                  </Typography>
+                  <Button startIcon={<RestartAltIcon />} size="small" type="reset" color="error" variant="contained">
+                    Reset Order
+                  </Button>
+                </Stack>
               </Box>
               <Stack
                 sx={{
@@ -60,8 +67,11 @@ const OrderForm = () => {
                 }}
                 spacing={1}
               >
-                <Field name="customers">
-                  {({ field, form, meta }) => <TextField {...field} color="success" size="small" label="Customer" name="customer" id="customer" type={'text'} />}
+                <Field name="customer">
+                  {({ field, form, meta }) => {
+                    // console.log(field, form, meta);
+                    return <TextField {...field} color="success" size="small" label="Customer" type={'text'} error={meta.error ? true : false} helperText={meta.error} />;
+                  }}
                 </Field>
 
                 <Box
@@ -74,17 +84,18 @@ const OrderForm = () => {
                     overflowY: 'scroll',
                   }}
                 >
-                  <button type="button" onClick={() => dispatch(resetListOder())}>
-                    Reset
-                  </button>
-                  <br />
+                  {listOrder.length > 0 && (
+                    <Button startIcon={<PlaylistRemoveIcon />} size="small" type="reset" color="error" variant="contained" onClick={() => dispatch(resetListOder())}>
+                      Clear List
+                    </Button>
+                  )}
 
                   {listOrder.length === 0 ? (
                     <p>No Order</p>
                   ) : (
                     listOrder.map((list, index) => (
                       <p key={index}>
-                        {list.item.title} | {list.item.price} |{' '}
+                        {list.item.title} | {list.item.price} |
                         <button type="button" onClick={() => dispatch(bateQuantity(index))}>
                           -
                         </button>{' '}
@@ -93,9 +104,9 @@ const OrderForm = () => {
                           +
                         </button>{' '}
                         |<b> TOTAL :{currencyFormatter.format(list.total, { code: 'IDR' })}</b> |{' '}
-                        <button type="button" onClick={() => dispatch(removeListOrder(index))}>
-                          remove
-                        </button>
+                        <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(removeListOrder(index))}>
+                          <DeleteIcon />
+                        </IconButton>
                       </p>
                     ))
                   )}
@@ -112,7 +123,7 @@ const OrderForm = () => {
                 <Divider />
                 <Stack direction={'row'} justifyContent="space-between" spacing={1}>
                   <Typography variant="caption">* Final Price Includes Tax</Typography>
-                  <Button type="submit" color="success" variant="contained">
+                  <Button type="submit" color="success" variant="contained" disabled={!formik.isValid}>
                     PROCESS
                   </Button>
                 </Stack>

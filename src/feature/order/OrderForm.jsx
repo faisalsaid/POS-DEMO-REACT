@@ -60,7 +60,10 @@ const OrderForm = () => {
                 }}
                 spacing={1}
               >
-                <TextField color="success" size="small" label="Customer" name="customer" id="customer" type={'text'} />
+                <Field name="customers">
+                  {({ field, form, meta }) => <TextField {...field} color="success" size="small" label="Customer" name="customer" id="customer" type={'text'} />}
+                </Field>
+
                 <Box
                   sx={{
                     width: '100%',

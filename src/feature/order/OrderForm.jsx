@@ -60,7 +60,7 @@ const OrderForm = () => {
                     Order List
                   </Typography>
                   <Button startIcon={<RestartAltIcon />} size="small" type="reset" color="error" variant="contained">
-                    Reset Order
+                    Reset
                   </Button>
                 </Stack>
               </Box>

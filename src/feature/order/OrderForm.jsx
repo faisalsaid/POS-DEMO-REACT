@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Stack, TextField, Button, Divider, IconButton } from '@mui/material';
+import { Box, Typography, Stack, TextField, Button, Divider, IconButton, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
@@ -9,6 +9,9 @@ import currencyFormatter from 'currency-formatter';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import DeleteIcon from '@mui/icons-material/Delete';
+
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const OrderForm = () => {
   const dispatch = useDispatch();
@@ -65,7 +68,7 @@ const OrderForm = () => {
                 sx={{
                   padding: '.8rem',
                 }}
-                spacing={1}
+                spacing={2}
               >
                 <Field name="customer">
                   {({ field, form, meta }) => {
@@ -73,8 +76,54 @@ const OrderForm = () => {
                     return <TextField {...field} color="success" size="small" label="Customer" type={'text'} error={meta.error ? true : false} helperText={meta.error} />;
                   }}
                 </Field>
-
-                <Box
+                {listOrder.length > 0 && (
+                  <Stack direction={'row'}>
+                    <Button startIcon={<PlaylistRemoveIcon />} size="small" type="reset" color="error" variant="contained" onClick={() => dispatch(resetListOder())}>
+                      Clear List
+                    </Button>
+                  </Stack>
+                )}
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Item </TableCell>
+                        <TableCell align="right">Price</TableCell>
+                        <TableCell align="right">Quanity</TableCell>
+                        <TableCell align="right">Total</TableCell>
+                        <TableCell align="right">Action</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {listOrder.map((row, index) => (
+                        <TableRow key={row.item.title} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                          <TableCell component="th" scope="row">
+                            {row.item.title}
+                          </TableCell>
+                          <TableCell align="right">{row.item.price}</TableCell>
+                          <TableCell align="right">
+                            <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(bateQuantity(index))}>
+                              <RemoveCircleIcon />
+                            </IconButton>
+                            <b>{row.quantity}</b>
+                            <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(addQuantity(index))}>
+                              <AddCircleIcon />
+                            </IconButton>
+                          </TableCell>
+                          <TableCell align="right">{row.total}</TableCell>
+                          <TableCell align="right">
+                            {
+                              <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(removeListOrder(index))}>
+                                <DeleteIcon />
+                              </IconButton>
+                            }
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+                {/* <Box
                   sx={{
                     width: '100%',
                     backgroundColor: 'whitesmoke',
@@ -83,8 +132,8 @@ const OrderForm = () => {
                     padding: '.8rem',
                     overflowY: 'scroll',
                   }}
-                >
-                  {listOrder.length > 0 && (
+                > */}
+                {/* {listOrder.length > 0 && (
                     <Button startIcon={<PlaylistRemoveIcon />} size="small" type="reset" color="error" variant="contained" onClick={() => dispatch(resetListOder())}>
                       Clear List
                     </Button>
@@ -109,8 +158,8 @@ const OrderForm = () => {
                         </IconButton>
                       </p>
                     ))
-                  )}
-                </Box>
+                  )} */}
+                {/* </Box> */}
                 <Divider />
                 <Stack direction={'row'} justifyContent="space-between">
                   <Typography variant="h6" component={'div'}>

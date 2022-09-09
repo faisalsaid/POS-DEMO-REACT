@@ -18,7 +18,7 @@ const initialState = {
     error: '',
   },
   listOrder: [],
-  invoice: {
+  orders: {
     isLodaing: false,
     data: [],
     error: '',
@@ -50,8 +50,8 @@ const orderSlice = createSlice({
     // HANDLE listOrder END
   },
 
-  // HANDLE MENU
   extraReducers: (builder) => {
+    // HANDLE MENU
     builder.addCase(fetchAllMenu.pending, (state, action) => {
       state.menu.isLoading = true;
     });
@@ -65,26 +65,25 @@ const orderSlice = createSlice({
       state.menu.data = [];
       state.menu.error = action.error.message;
     });
-  },
-  // HANDLE MENU END
+    // HANDLE MENU END
 
-  // HANDLE INVOICE
-  extraReducers: (builder) => {
+    // HANDLE ORDER
     builder.addCase(fetchAllOrder.pending, (state, action) => {
-      state.invoice.isLoading = true;
+      state.orders.isLoading = true;
     });
     builder.addCase(fetchAllOrder.fulfilled, (state, { payload }) => {
-      state.invoice.isLoading = false;
-      state.invoice.data = payload;
-      state.invoice.error = '';
+      state.orders.isLoading = false;
+      state.orders.data = payload;
+      state.orders.error = '';
     });
     builder.addCase(fetchAllOrder.rejected, (state, action) => {
-      state.invoice.isLoading = false;
-      state.invoice.data = [];
-      state.invoice.error = action.error.message;
+      state.orders.isLoading = false;
+      state.orders.data = [];
+      state.orders.error = action.error.message;
     });
   },
-  // HANDLE INVOICE END
+
+  // HANDLE ORDER END
 });
 
 export const { addListOrder, addQuantity, bateQuantity, resetListOder, removeListOrder } = orderSlice.actions;

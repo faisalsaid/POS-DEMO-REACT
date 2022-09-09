@@ -19,5 +19,12 @@ export const listSideMenu = [
     name: 'Order',
     icon: <StoreIcon color={color} />,
     path: '/order',
+    subMenu: [
+      {
+        name: 'Factur',
+        icon: <StoreIcon color={color} />,
+        path: '/order/factur',
+      },
+    ],
   },
 ];

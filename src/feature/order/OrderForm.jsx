@@ -62,7 +62,7 @@ const OrderForm = () => {
     const payload = {
       ...value,
       listOrder,
-      totalAmount: listOrder?.map((order) => order.total).reduce((total, item) => total + item) * 1.11,
+      totalAmount: Math.ceil(listOrder?.map((order) => order.total).reduce((total, item) => total + item) * 1.11),
       orderRef: getOrderRef(value.customer),
       isPaidOff: false,
       tax: 1.11,
@@ -188,7 +188,7 @@ const OrderForm = () => {
                       Total Amount :
                     </Typography>
                     <Typography variant="h4" component={'div'}>
-                      {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) * 1.11 : 0, {
+                      {currencyFormatter.format(listOrder.length > 0 ? Math.ceil(listOrder.map((order) => order.total).reduce((total, item) => total + item) * 1.11) : 0, {
                         code: 'IDR',
                       })}
                     </Typography>

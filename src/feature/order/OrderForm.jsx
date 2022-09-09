@@ -62,9 +62,11 @@ const OrderForm = () => {
     const payload = {
       ...value,
       listOrder,
-      totalAmount: listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0,
+      totalAmount: listOrder?.map((order) => order.total).reduce((total, item) => total + item) * 1.11,
       orderRef: getOrderRef(value.customer),
       isPaidOff: false,
+      tax: 1.11,
+      price: listOrder?.map((order) => order.total).reduce((total, item) => total + item),
     };
     console.log(payload);
     props.setSubmitting(false);
@@ -163,15 +165,35 @@ const OrderForm = () => {
                   </Table>
                 </TableContainer>
 
-                <Divider />
-                <Stack direction={'row'} justifyContent="space-between">
-                  <Typography variant="h6" component={'div'}>
-                    Total Amount :
-                  </Typography>
-                  <Typography variant="h4" component={'div'}>
-                    {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, { code: 'IDR' })}
-                  </Typography>
-                </Stack>
+                <Box>
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="body" component={'div'}>
+                      Price :
+                    </Typography>
+                    <Typography variant="h6" component={'div'}>
+                      {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, { code: 'IDR' })}
+                    </Typography>
+                  </Stack>
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="body" component={'div'}>
+                      Tax :
+                    </Typography>
+                    <Typography variant="h6" component={'div'}>
+                      11%
+                    </Typography>
+                  </Stack>
+                  <Divider />
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="h6" component={'div'}>
+                      Total Amount :
+                    </Typography>
+                    <Typography variant="h4" component={'div'}>
+                      {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) * 1.11 : 0, {
+                        code: 'IDR',
+                      })}
+                    </Typography>
+                  </Stack>
+                </Box>
                 <Divider />
                 <Stack direction={'row'} justifyContent="space-between" spacing={1}>
                   <Typography variant="caption">* Final Price Includes Tax</Typography>

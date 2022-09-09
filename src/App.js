@@ -29,14 +29,7 @@ function App() {
           />
           <Route path="/order">
             <Route index element={<Order />} />
-            <Route
-              path="invoice"
-              element={
-                <Main>
-                  <Invoice />
-                </Main>
-              }
-            />
+            <Route path="invoice" element={<Invoice />} />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

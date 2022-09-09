@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addQuantity, bateQuantity, resetListOder, removeListOrder } from './sliceOrder';
 import currencyFormatter from 'currency-formatter';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 // icons
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -50,6 +51,31 @@ const OrderForm = () => {
     customer: yup.string().required('Required').min(3, 'Min 3 character'),
   });
 
+  const postOrder = (payload, props) => {
+    console.log(payload);
+    return axios
+      .post(`${process.env.REACT_APP_API_SOURCE}order`, payload)
+      .then((resp) => {
+        console.log(resp.data);
+        props.setSubmitting(false);
+        dispatch(resetListOder());
+        props.resetForm();
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Create',
+          text: `Order for ${payload.customer} success created`,
+        });
+        // Swal.fire({
+        //   position: 'center',
+        //   icon: 'success',
+        //   title: 'Your work has been add',
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
+      })
+      .catch((err) => err.message);
+  };
+
   const onSubmit = (value, props) => {
     if (listOrder.length === 0) {
       Swal.fire({
@@ -69,15 +95,9 @@ const OrderForm = () => {
       price: listOrder?.map((order) => order.total).reduce((total, item) => total + item),
       atCreate: new Date(),
     };
+
     console.log(payload);
-    props.setSubmitting(false);
-    dispatch(resetListOder());
-    props.resetForm({ value: '' });
-    Swal.fire({
-      icon: 'success',
-      title: 'Order Create',
-      text: `Order for ${value.customer} success created`,
-    });
+    postOrder(payload, props);
   };
 
   const onReset = (value, props) => {

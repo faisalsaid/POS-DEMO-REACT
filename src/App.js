@@ -8,6 +8,7 @@ import Main from './components/layout/Main';
 import Order from './feature/order/Order';
 import SkelMenuPage from './components/skeleton/pages/SkelMenuPage';
 import PageNotFound from './feature/notfound/PageNotFound';
+import Invoice from './feature/order/Invoice';
 
 // lazy component
 const Menu = React.lazy(() => import('./feature/menu/Menu'));
@@ -29,10 +30,10 @@ function App() {
           <Route path="/order">
             <Route index element={<Order />} />
             <Route
-              path="factur"
+              path="invoice"
               element={
                 <Main>
-                  <h1>Halo</h1>
+                  <Invoice />
                 </Main>
               }
             />

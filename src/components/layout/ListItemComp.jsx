@@ -43,10 +43,8 @@ const ListItemComp = ({ list, open, navigate }) => {
         <Collapse key={index} in={openSub} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton sx={{ pl: 4 }} onClick={() => navigate(subMenu.path)}>
-              <ListItemIcon>
-                <StarBorder />
-              </ListItemIcon>
-              <ListItemText primary="Starred" />
+              <ListItemIcon>{subMenu.icon}</ListItemIcon>
+              <ListItemText primary={subMenu.name} />
             </ListItemButton>
           </List>
         </Collapse>

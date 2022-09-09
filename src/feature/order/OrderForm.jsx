@@ -27,13 +27,13 @@ const getRandomSring = (length) => {
 
 const getOrderRef = (costumer) => {
   const rootTime = new Date();
-  const string1 = getRandomSring(4);
+  const string1 = getRandomSring(5);
   const hour = rootTime.getHours();
   const minutes = rootTime.getMinutes();
   const date = rootTime.getDate();
   const month = rootTime.getMonth();
   const costumer2 = costumer.substr(0, 3);
-  const code = `${string1}-${costumer2}-${hour}:${minutes}/${date}/${month}`;
+  const code = `${string1}${costumer2}-${hour}${minutes}-${date}${month}`;
   return code;
 };
 // ==========================

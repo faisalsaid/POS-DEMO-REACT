@@ -1,17 +1,43 @@
 import React from 'react';
 import { Box, Typography, Stack, TextField, Button, Divider, IconButton, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-
 import { Formik, Field, Form } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { addQuantity, bateQuantity, resetListOder, removeListOrder } from './sliceOrder';
 import currencyFormatter from 'currency-formatter';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+
+// icons
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+
+// ==========================
+const getRandomSring = (length) => {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
+const getOrderRef = (costumer) => {
+  const rootTime = new Date();
+  const string1 = getRandomSring(5);
+  const hour = rootTime.getHours();
+  const minutes = rootTime.getMinutes();
+  const date = rootTime.getDate();
+  const month = rootTime.getMonth();
+  const costumer2 = costumer.substr(0, 3);
+  const code = `${string1}${costumer2.toUpperCase()}-${hour}${minutes}-${date}${month}`;
+  return code;
+};
+// ==========================
 
 const OrderForm = () => {
   const dispatch = useDispatch();
@@ -25,17 +51,53 @@ const OrderForm = () => {
     customer: yup.string().required('Required').min(3, 'Min 3 character'),
   });
 
+  const postOrder = (payload, props) => {
+    console.log(payload);
+    return axios
+      .post(`${process.env.REACT_APP_API_SOURCE}order`, payload)
+      .then((resp) => {
+        console.log(resp.data);
+        props.setSubmitting(false);
+        dispatch(resetListOder());
+        props.resetForm();
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Create',
+          text: `Order for ${payload.customer} success created`,
+        });
+        // Swal.fire({
+        //   position: 'center',
+        //   icon: 'success',
+        //   title: 'Your work has been add',
+        //   showConfirmButton: false,
+        //   timer: 1500,
+        // });
+      })
+      .catch((err) => err.message);
+  };
+
   const onSubmit = (value, props) => {
+    if (listOrder.length === 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Order List Empty',
+        text: `Please add some item order for ${value.customer}`,
+      });
+      return;
+    }
     const payload = {
       ...value,
       listOrder,
-      totalAmount: listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0,
-      orderRef: 'ffds-nam-2012',
+      totalAmount: Math.ceil(listOrder?.map((order) => order.total).reduce((total, item) => total + item) * 1.11),
+      orderRef: getOrderRef(value.customer),
+      isPaidOff: false,
+      tax: 1.11,
+      price: listOrder?.map((order) => order.total).reduce((total, item) => total + item),
+      atCreate: new Date(),
     };
+
     console.log(payload);
-    props.setSubmitting(false);
-    dispatch(resetListOder());
-    props.resetForm({ value: '' });
+    postOrder(payload, props);
   };
 
   const onReset = (value, props) => {
@@ -100,17 +162,17 @@ const OrderForm = () => {
                           <TableCell component="th" scope="row">
                             {row.item.title}
                           </TableCell>
-                          <TableCell align="right">{row.item.price}</TableCell>
+                          <TableCell align="right">{currencyFormatter.format(row.item.price, { code: 'IDR' })}</TableCell>
                           <TableCell align="right">
-                            <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(bateQuantity(index))}>
+                            <IconButton color="success" aria-label="upload picture" component="label" onClick={() => dispatch(bateQuantity(index))}>
                               <RemoveCircleIcon />
                             </IconButton>
                             <b>{row.quantity}</b>
-                            <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(addQuantity(index))}>
+                            <IconButton color="success" aria-label="upload picture" component="label" onClick={() => dispatch(addQuantity(index))}>
                               <AddCircleIcon />
                             </IconButton>
                           </TableCell>
-                          <TableCell align="right">{row.total}</TableCell>
+                          <TableCell align="right">{currencyFormatter.format(row.total, { code: 'IDR' })}</TableCell>
                           <TableCell align="right">
                             {
                               <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(removeListOrder(index))}>
@@ -123,56 +185,40 @@ const OrderForm = () => {
                     </TableBody>
                   </Table>
                 </TableContainer>
-                {/* <Box
-                  sx={{
-                    width: '100%',
-                    backgroundColor: 'whitesmoke',
-                    minHeight: '100px',
-                    height: '330px',
-                    padding: '.8rem',
-                    overflowY: 'scroll',
-                  }}
-                > */}
-                {/* {listOrder.length > 0 && (
-                    <Button startIcon={<PlaylistRemoveIcon />} size="small" type="reset" color="error" variant="contained" onClick={() => dispatch(resetListOder())}>
-                      Clear List
-                    </Button>
-                  )}
 
-                  {listOrder.length === 0 ? (
-                    <p>No Order</p>
-                  ) : (
-                    listOrder.map((list, index) => (
-                      <p key={index}>
-                        {list.item.title} | {list.item.price} |
-                        <button type="button" onClick={() => dispatch(bateQuantity(index))}>
-                          -
-                        </button>{' '}
-                        {list.quantity}{' '}
-                        <button type="button" onClick={() => dispatch(addQuantity(index))}>
-                          +
-                        </button>{' '}
-                        |<b> TOTAL :{currencyFormatter.format(list.total, { code: 'IDR' })}</b> |{' '}
-                        <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(removeListOrder(index))}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </p>
-                    ))
-                  )} */}
-                {/* </Box> */}
-                <Divider />
-                <Stack direction={'row'} justifyContent="space-between">
-                  <Typography variant="h6" component={'div'}>
-                    Total Amount :
-                  </Typography>
-                  <Typography variant="h4" component={'div'}>
-                    {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, { code: 'IDR' })}
-                  </Typography>
-                </Stack>
+                <Box>
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="body" component={'div'}>
+                      Price :
+                    </Typography>
+                    <Typography variant="h6" component={'div'}>
+                      {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, { code: 'IDR' })}
+                    </Typography>
+                  </Stack>
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="body" component={'div'}>
+                      Tax :
+                    </Typography>
+                    <Typography variant="h6" component={'div'}>
+                      11%
+                    </Typography>
+                  </Stack>
+                  <Divider />
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="h6" component={'div'}>
+                      Total Amount :
+                    </Typography>
+                    <Typography variant="h4" component={'div'}>
+                      {currencyFormatter.format(listOrder.length > 0 ? Math.ceil(listOrder.map((order) => order.total).reduce((total, item) => total + item) * 1.11) : 0, {
+                        code: 'IDR',
+                      })}
+                    </Typography>
+                  </Stack>
+                </Box>
                 <Divider />
                 <Stack direction={'row'} justifyContent="space-between" spacing={1}>
                   <Typography variant="caption">* Final Price Includes Tax</Typography>
-                  <Button type="submit" color="success" variant="contained" disabled={!formik.isValid}>
+                  <Button type="submit" color="success" variant="contained" disabled={listOrder.length === 0 || !formik.isValid}>
                     PROCESS
                   </Button>
                 </Stack>

@@ -6,6 +6,11 @@ export const fetchAllMenu = createAsyncThunk('order/fetchAllMenu', (data) => {
   return axios.get(`${process.env.REACT_APP_API_SOURCE}menu${filter}`).then((resp) => resp.data);
 });
 
+export const fetchAllOrder = createAsyncThunk('order/fetchAllOrder', (data) => {
+  // const filter = data === 'all' ? '' : `?category=${data}`;
+  return axios.get(`${process.env.REACT_APP_API_SOURCE}order`).then((resp) => resp.data);
+});
+
 const initialState = {
   menu: {
     isLoading: false,
@@ -13,6 +18,11 @@ const initialState = {
     error: '',
   },
   listOrder: [],
+  orders: {
+    isLodaing: false,
+    data: [],
+    error: '',
+  },
 };
 
 const orderSlice = createSlice({
@@ -39,7 +49,9 @@ const orderSlice = createSlice({
     },
     // HANDLE listOrder END
   },
+
   extraReducers: (builder) => {
+    // HANDLE MENU
     builder.addCase(fetchAllMenu.pending, (state, action) => {
       state.menu.isLoading = true;
     });
@@ -53,7 +65,25 @@ const orderSlice = createSlice({
       state.menu.data = [];
       state.menu.error = action.error.message;
     });
+    // HANDLE MENU END
+
+    // HANDLE ORDER
+    builder.addCase(fetchAllOrder.pending, (state, action) => {
+      state.orders.isLoading = true;
+    });
+    builder.addCase(fetchAllOrder.fulfilled, (state, { payload }) => {
+      state.orders.isLoading = false;
+      state.orders.data = payload;
+      state.orders.error = '';
+    });
+    builder.addCase(fetchAllOrder.rejected, (state, action) => {
+      state.orders.isLoading = false;
+      state.orders.data = [];
+      state.orders.error = action.error.message;
+    });
   },
+
+  // HANDLE ORDER END
 });
 
 export const { addListOrder, addQuantity, bateQuantity, resetListOder, removeListOrder } = orderSlice.actions;

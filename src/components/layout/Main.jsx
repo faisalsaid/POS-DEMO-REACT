@@ -16,12 +16,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Collapse from '@mui/material/Collapse';
+import StarBorder from '@mui/icons-material/StarBorder';
+
 import { listSideMenu } from './listsidemenu';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setOpenDrawer } from './sliceMainLayout';
 
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory';
+import ListItemComp from './ListItemComp';
 
 const drawerWidth = 240;
 
@@ -130,7 +134,6 @@ const Main = (props) => {
             }}
             variant="body2"
           >
-            {' '}
             / {title}
           </Typography>
           <Typography sx={{ marginLeft: 'auto' }}>{new Date().toDateString()}</Typography>
@@ -143,27 +146,7 @@ const Main = (props) => {
         <Divider />
         <List>
           {listSideMenu.map((list, index) => (
-            <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-                onClick={() => navigate(list.path)}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {list.icon}
-                </ListItemIcon>
-                <ListItemText primary={list.name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
+            <ListItemComp list={list} key={index} open={open} navigate={navigate} />
           ))}
         </List>
         <Divider />

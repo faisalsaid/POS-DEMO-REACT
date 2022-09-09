@@ -17,7 +17,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 // ==========================
 const getRandomSring = (length) => {
   var result = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   var charactersLength = characters.length;
   for (var i = 0; i < length; i++) {
     result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -33,7 +33,7 @@ const getOrderRef = (costumer) => {
   const date = rootTime.getDate();
   const month = rootTime.getMonth();
   const costumer2 = costumer.substr(0, 3);
-  const code = `${string1}${costumer2}-${hour}${minutes}-${date}${month}`;
+  const code = `${string1}${costumer2.toUpperCase()}-${hour}${minutes}-${date}${month}`;
   return code;
 };
 // ==========================
@@ -67,6 +67,7 @@ const OrderForm = () => {
       isPaidOff: false,
       tax: 1.11,
       price: listOrder?.map((order) => order.total).reduce((total, item) => total + item),
+      atCreate: new Date(),
     };
     console.log(payload);
     props.setSubmitting(false);

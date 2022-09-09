@@ -26,7 +26,17 @@ function App() {
               </React.Suspense>
             }
           />
-          <Route path="/order" element={<Order />} />
+          <Route path="/order">
+            <Route index element={<Order />} />
+            <Route
+              path="factur"
+              element={
+                <Main>
+                  <h1>Halo</h1>
+                </Main>
+              }
+            />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

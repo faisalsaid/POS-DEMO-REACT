@@ -12,10 +12,10 @@ import { useEffect } from 'react';
 const ListItemComp = ({ list, open, navigate }) => {
   const location = useLocation();
   const [openSub, setOpenSub] = useState(false);
-  //   console.log(location.pathname);
-  //   console.log(list.path);
+
   useEffect(() => {
-    location.pathname === list.path ? setOpenSub(true) : setOpenSub(false);
+    const arr = location.pathname.split('/');
+    location.pathname === list.path || arr.includes(list.path.substring(1)) ? setOpenSub(true) : setOpenSub(false);
   }, [location]);
   return (
     <ListItem disablePadding sx={{ display: 'block' }}>

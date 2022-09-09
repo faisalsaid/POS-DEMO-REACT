@@ -13,6 +13,30 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
+// ==========================
+const getRandomSring = (length) => {
+  var result = '';
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
+const getOrderRef = (costumer) => {
+  const rootTime = new Date();
+  const string1 = getRandomSring(4);
+  const hour = rootTime.getHours();
+  const minutes = rootTime.getMinutes();
+  const date = rootTime.getDate();
+  const month = rootTime.getMonth();
+  const costumer2 = costumer.substr(0, 3);
+  const code = `${string1}-${costumer2}-${hour}:${minutes}/${date}/${month}`;
+  return code;
+};
+// ==========================
+
 const OrderForm = () => {
   const dispatch = useDispatch();
   const listOrder = useSelector((state) => state.order.listOrder);
@@ -30,7 +54,7 @@ const OrderForm = () => {
       ...value,
       listOrder,
       totalAmount: listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0,
-      orderRef: 'ffds-nam-2012',
+      orderRef: getOrderRef(value.customer),
     };
     console.log(payload);
     props.setSubmitting(false);

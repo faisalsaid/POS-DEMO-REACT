@@ -143,11 +143,11 @@ const OrderForm = () => {
                           </TableCell>
                           <TableCell align="right">{currencyFormatter.format(row.item.price, { code: 'IDR' })}</TableCell>
                           <TableCell align="right">
-                            <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(bateQuantity(index))}>
+                            <IconButton color="success" aria-label="upload picture" component="label" onClick={() => dispatch(bateQuantity(index))}>
                               <RemoveCircleIcon />
                             </IconButton>
                             <b>{row.quantity}</b>
-                            <IconButton color="error" aria-label="upload picture" component="label" onClick={() => dispatch(addQuantity(index))}>
+                            <IconButton color="success" aria-label="upload picture" component="label" onClick={() => dispatch(addQuantity(index))}>
                               <AddCircleIcon />
                             </IconButton>
                           </TableCell>

@@ -33,9 +33,9 @@ const getOrderRef = (costumer) => {
   const hour = rootTime.getHours();
   const minutes = rootTime.getMinutes();
   const date = rootTime.getDate();
-  const month = rootTime.getMonth();
+  let month = rootTime.getMonth();
   const costumer2 = costumer.substr(0, 3);
-  const code = `${string1}${costumer2.toUpperCase()}-${hour}${minutes}-${date}${month}`;
+  const code = `${string1}${costumer2.toUpperCase()}-${hour}${minutes}-${date}${(month += 1)}`;
   return code;
 };
 // ==========================
@@ -54,20 +54,20 @@ const OrderForm = () => {
 
   const postOrder = (payload, props) => {
     console.log(payload);
-    return axios
-      .post(`${process.env.REACT_APP_API_SOURCE}order`, payload)
-      .then((resp) => {
-        console.log(resp.data);
-        props.setSubmitting(false);
-        dispatch(resetListOder());
-        props.resetForm();
-        Swal.fire({
-          icon: 'success',
-          title: 'Order Create',
-          text: `Order for ${payload.customer} success created`,
-        });
-      })
-      .catch((err) => err.message);
+    // return axios
+    //   .post(`${process.env.REACT_APP_API_SOURCE}order`, payload)
+    //   .then((resp) => {
+    //     console.log(resp.data);
+    //     props.setSubmitting(false);
+    //     dispatch(resetListOder());
+    //     props.resetForm();
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: 'Order Create',
+    //       text: `Order for ${payload.customer} success created`,
+    //     });
+    //   })
+    //   .catch((err) => err.message);
   };
 
   const onSubmit = (value, props) => {

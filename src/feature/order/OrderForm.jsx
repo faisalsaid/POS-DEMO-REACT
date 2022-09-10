@@ -54,20 +54,20 @@ const OrderForm = () => {
 
   const postOrder = (payload, props) => {
     console.log(payload);
-    // return axios
-    //   .post(`${process.env.REACT_APP_API_SOURCE}order`, payload)
-    //   .then((resp) => {
-    //     console.log(resp.data);
-    //     props.setSubmitting(false);
-    //     dispatch(resetListOder());
-    //     props.resetForm();
-    //     Swal.fire({
-    //       icon: 'success',
-    //       title: 'Order Create',
-    //       text: `Order for ${payload.customer} success created`,
-    //     });
-    //   })
-    //   .catch((err) => err.message);
+    return axios
+      .post(`${process.env.REACT_APP_API_SOURCE}order`, payload)
+      .then((resp) => {
+        console.log(resp.data);
+        props.setSubmitting(false);
+        dispatch(resetListOder());
+        props.resetForm();
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Create',
+          text: `Order for ${payload.customer} success created`,
+        });
+      })
+      .catch((err) => err.message);
   };
 
   const onSubmit = (value, props) => {

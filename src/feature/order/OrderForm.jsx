@@ -185,7 +185,7 @@ const OrderForm = () => {
                       Total Amount :
                     </Typography>
                     <Typography variant="h4" component={'div'}>
-                      {currencyFormatter.format(listOrder.length > 0 ? Math.ceil(listOrder.map((order) => order.total).reduce((total, item) => total + item) * 1.11) : 0, {
+                      {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, {
                         code: 'IDR',
                       })}
                     </Typography>

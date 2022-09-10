@@ -14,6 +14,7 @@ import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 
 // ==========================
 const getRandomSring = (length) => {
@@ -65,13 +66,6 @@ const OrderForm = () => {
           title: 'Order Create',
           text: `Order for ${payload.customer} success created`,
         });
-        // Swal.fire({
-        //   position: 'center',
-        //   icon: 'success',
-        //   title: 'Your work has been add',
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
       })
       .catch((err) => err.message);
   };
@@ -88,11 +82,10 @@ const OrderForm = () => {
     const payload = {
       ...value,
       listOrder,
-      totalAmount: Math.ceil(listOrder?.map((order) => order.total).reduce((total, item) => total + item) * 1.11),
+      totalAmount: listOrder?.map((order) => order.total).reduce((total, item) => total + item),
       orderRef: getOrderRef(value.customer),
       isPaidOff: false,
-      tax: 1.11,
-      price: listOrder?.map((order) => order.total).reduce((total, item) => total + item),
+
       atCreate: new Date(),
     };
 
@@ -188,23 +181,6 @@ const OrderForm = () => {
 
                 <Box>
                   <Stack direction={'row'} justifyContent="space-between">
-                    <Typography variant="body" component={'div'}>
-                      Price :
-                    </Typography>
-                    <Typography variant="h6" component={'div'}>
-                      {currencyFormatter.format(listOrder.length > 0 ? listOrder.map((order) => order.total).reduce((total, item) => total + item) : 0, { code: 'IDR' })}
-                    </Typography>
-                  </Stack>
-                  <Stack direction={'row'} justifyContent="space-between">
-                    <Typography variant="body" component={'div'}>
-                      Tax :
-                    </Typography>
-                    <Typography variant="h6" component={'div'}>
-                      11%
-                    </Typography>
-                  </Stack>
-                  <Divider />
-                  <Stack direction={'row'} justifyContent="space-between">
                     <Typography variant="h6" component={'div'}>
                       Total Amount :
                     </Typography>
@@ -217,9 +193,9 @@ const OrderForm = () => {
                 </Box>
                 <Divider />
                 <Stack direction={'row'} justifyContent="space-between" spacing={1}>
-                  <Typography variant="caption">* Final Price Includes Tax</Typography>
-                  <Button type="submit" color="success" variant="contained" disabled={listOrder.length === 0 || !formik.isValid}>
-                    PROCESS
+                  <Typography variant="caption">* Final Price Not Includes Tax</Typography>
+                  <Button startIcon={<AddIcon />} type="submit" color="success" variant="contained" disabled={listOrder.length === 0 || !formik.isValid}>
+                    add order
                   </Button>
                 </Stack>
               </Stack>

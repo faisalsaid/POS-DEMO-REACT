@@ -11,6 +11,7 @@ import Login from './feature/login/Login';
 import Order from './feature/order/Order';
 import SkelMenuPage from './components/skeleton/pages/SkelMenuPage';
 import PageNotFound from './feature/notfound/PageNotFound';
+import Invoice from './feature/order/Invoice';
 
 // lazy component
 const Menu = React.lazy(() => import('./feature/menu/Menu'));
@@ -30,7 +31,10 @@ function App() {
               </React.Suspense>
             }
           />
-          <Route path="/order" element={<Order />} />
+          <Route path="/order">
+            <Route index element={<Order />} />
+            <Route path="invoice" element={<Invoice />} />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>

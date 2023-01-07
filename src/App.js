@@ -15,18 +15,13 @@ import PageNotFound from './feature/notfound/PageNotFound';
 // lazy component
 const Menu = React.lazy(() => import('./feature/menu/Menu'));
 
-
 function App() {
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-
-        
           <Route path="/login" element={<Login />} />
-          
-
           <Route
             path="/menu"
             element={
@@ -37,7 +32,6 @@ function App() {
           />
           <Route path="/order" element={<Order />} />
           <Route path="*" element={<PageNotFound />} />
-
         </Routes>
       </Router>
     </>

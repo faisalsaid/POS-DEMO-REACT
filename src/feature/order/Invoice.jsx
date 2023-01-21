@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Main from '../../components/layout/Main';
 import { fetchAllOrder } from './sliceOrder';
-import { Stack, Typography, Box } from '@mui/material';
+import { Stack, Typography, Box, Divider } from '@mui/material';
 
 const Invoice = () => {
   const { isLoading, data: allOrders, error } = useSelector((state) => state.order.orders);
@@ -13,7 +13,7 @@ const Invoice = () => {
     dispatch(fetchAllOrder());
   }, []);
   return (
-    <Main>
+    <Main title="Invoice">
       <Stack direction={'row'} spacing={2}>
         {allOrders
           .filter((order) => order.isPaidOff === false)

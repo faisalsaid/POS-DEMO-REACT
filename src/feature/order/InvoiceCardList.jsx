@@ -1,13 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Stack, Typography, Button, Divider } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import currencyFormatter from 'currency-formatter';
 import { Box } from '@mui/system';
+import InvoiceDetailsDialog from './InvoiceDetailsDialog';
 
 const InvoiceCardList = (props) => {
   //   console.log(props);
   const { order } = props;
-  console.log(order);
+  //   console.log(order);
+  const [openInvoiceDetails, setOpenInvoiceDetails] = useState(false);
+  const [dialogData, setDialogData] = useState({});
+
+  const heandleInvoiceDetailsOpen = () => {
+    setOpenInvoiceDetails(true);
+    setDialogData({
+      title: 'Add New Menu',
+      //   icon: <FastfoodIcon color="primary" />,
+    });
+  };
+  const heandleInvoiceDetailsClose = (fromDialog) => {
+    setOpenInvoiceDetails(false);
+    setDialogData({});
+  };
 
   return (
     <Stack
@@ -38,7 +53,7 @@ const InvoiceCardList = (props) => {
               width: '100px',
             }}
             size="small"
-            onClick={() => alert(`${order.orderRef}`)}
+            onClick={heandleInvoiceDetailsOpen}
             startIcon={<InfoIcon />}
             color="success"
             variant="outlined"
@@ -93,6 +108,7 @@ const InvoiceCardList = (props) => {
           Proccess
         </Button>
       </Stack>
+      <InvoiceDetailsDialog open={openInvoiceDetails} onClose={heandleInvoiceDetailsClose} data={order} />
     </Stack>
   );
 };

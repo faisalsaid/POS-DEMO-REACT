@@ -17,7 +17,7 @@ const InvoiceDetailsDialog = (props) => {
   // console.log(props);
   const { open, onClose, data } = props;
   const [date, setDate] = useState(new Date(data.atCreate));
-  console.log(date);
+  const [tax, setTax] = useState(0.11);
 
   return (
     <Dialog sx={{ minWidth: '300px' }} open={open}>
@@ -51,11 +51,27 @@ const InvoiceDetailsDialog = (props) => {
       <Divider />
       <Stack gap={1} sx={{ minWidth: '550px', padding: '1rem' }}>
         <Stack direction={'row'} justifyContent="space-between">
-          <Typography variant="h4" component={'p'}>
+          <Typography variant="h5" component={'p'}>
             Total :
           </Typography>
-          <Typography variant="h4" component={'p'}>
+          <Typography variant="h5" component={'p'}>
             {currencyFormatter.format(data.totalAmount, { code: 'IDR' })}
+          </Typography>
+        </Stack>
+        <Stack direction={'row'} justifyContent="space-between">
+          <Typography variant="body" component={'p'}>
+            Tax {tax * 100} {'%'} :
+          </Typography>
+          <Typography variant="body" component={'p'}>
+            {currencyFormatter.format(data.totalAmount * tax, { code: 'IDR' })}
+          </Typography>
+        </Stack>
+        <Stack direction={'row'} justifyContent="space-between">
+          <Typography variant="h4" component={'p'}>
+            Final Price :
+          </Typography>
+          <Typography variant="h4" component={'p'}>
+            {currencyFormatter.format(data.totalAmount * tax + data.totalAmount, { code: 'IDR' })}
           </Typography>
         </Stack>
         <Divider />

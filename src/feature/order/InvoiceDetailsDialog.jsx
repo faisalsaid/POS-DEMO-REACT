@@ -1,19 +1,15 @@
-import React from 'react';
-import { Dialog, DialogTitle, Stack, IconButton, Typography, Divider, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import currencyFormatter from 'currency-formatter';
 import { useState } from 'react';
-// import Table from '@mui/material/Table';
-// import TableBody from '@mui/material/TableBody';
-// import TableCell from '@mui/material/TableCell';
-// import TableContainer from '@mui/material/TableContainer';
-// import TableHead from '@mui/material/TableHead';
-// import TableRow from '@mui/material/TableRow';
-// import Paper from '@mui/material/Paper';
+import { Dialog, DialogTitle, Stack, IconButton, Typography, Divider, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import currencyFormatter from 'currency-formatter';
+
+// ICONS
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import CloseIcon from '@mui/icons-material/Close';
+import PrintIcon from '@mui/icons-material/Print';
+import PaymentsIcon from '@mui/icons-material/Payments';
 
 const InvoiceDetailsDialog = (props) => {
-  //   const { data } = props;
+  // const { data } = props;
   // console.log(props);
   const { open, onClose, data } = props;
   const [date, setDate] = useState(new Date(data.atCreate));
@@ -116,9 +112,14 @@ const InvoiceDetailsDialog = (props) => {
             </Table>
           </TableContainer>
         </Stack>
-        <Button variant="contained" color="success">
-          Proccess
-        </Button>
+        <Stack direction={'row-reverse'} gap={1}>
+          <Button startIcon={<PaymentsIcon />} variant="contained" color="success" onClick={() => alert('process')}>
+            Process
+          </Button>
+          <Button startIcon={<PrintIcon />} variant="outlined" color="success">
+            Print
+          </Button>
+        </Stack>
       </Stack>
     </Dialog>
   );

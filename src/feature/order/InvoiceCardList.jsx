@@ -40,20 +40,20 @@ const InvoiceCardList = (props) => {
   };
 
   const handleProcces = () => {
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Process',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        postOmset();
-        Swal.fire('Deleted!', 'Your order has been process.', 'success');
-      }
-    });
+    // Swal.fire({
+    //   title: 'Are you sure?',
+    //   text: "You won't be able to revert this!",
+    //   icon: 'warning',
+    //   showCancelButton: true,
+    //   confirmButtonColor: '#3085d6',
+    //   cancelButtonColor: '#d33',
+    //   confirmButtonText: 'Yes, Process',
+    // }).then((result) => {
+    //   if (result.isConfirmed) {
+    //     postOmset();
+    //     Swal.fire('Deleted!', 'Your order has been process.', 'success');
+    //   }
+    // });
   };
 
   return (

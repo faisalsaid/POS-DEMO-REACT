@@ -96,13 +96,30 @@ const InvoiceCardList = (props) => {
             paddingBottom: '1rem',
           }}
         >
-          <Typography variant="caption" component={'p'}>
-            Total :
-          </Typography>
-          <Typography variant="h5" component={'p'}>
-            {currencyFormatter.format(order.totalAmount, { code: 'IDR' })}
-            {/* {order.totalAmount} */}
-          </Typography>
+          <Stack direction={'row'} justifyContent="space-between">
+            <Typography variant="caption" component={'p'}>
+              Total :
+            </Typography>
+            <Typography variant="body" component={'p'}>
+              {currencyFormatter.format(order.totalAmount, { code: 'IDR' })}
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} justifyContent="space-between">
+            <Typography variant="caption" component={'p'}>
+              Tax 11% :
+            </Typography>
+            <Typography variant="body" component={'p'}>
+              {currencyFormatter.format(order.totalAmount * 0.11, { code: 'IDR' })}
+            </Typography>
+          </Stack>
+          <Stack>
+            <Typography variant="caption" component={'p'}>
+              Final Price :
+            </Typography>
+            <Typography align="right" variant="h6" component={'p'}>
+              {currencyFormatter.format(order.totalAmount * 0.11 + order.totalAmount, { code: 'IDR' })}
+            </Typography>
+          </Stack>
         </Stack>
         <Button variant="contained" color="success">
           Proccess

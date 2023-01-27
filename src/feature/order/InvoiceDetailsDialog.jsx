@@ -113,7 +113,7 @@ const InvoiceDetailsDialog = (props) => {
           </TableContainer>
         </Stack>
         <Stack direction={'row-reverse'} gap={1}>
-          <Button startIcon={<PaymentsIcon />} variant="contained" color="success" onClick={() => alert('process')}>
+          <Button disabled={data.isPaidOff} startIcon={<PaymentsIcon />} variant="contained" color="success" onClick={() => alert('process')}>
             Process
           </Button>
           <Button startIcon={<PrintIcon />} variant="outlined" color="success">

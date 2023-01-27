@@ -25,7 +25,7 @@ const Invoice = () => {
         spacing={2}
       >
         {allOrders
-          .filter((order) => order.isPaidOff === false)
+          // .filter((order) => order.isPaidOff === false)
           .map((order, index) => {
             return <InvoiceCardList order={order} key={index} />;
           })}

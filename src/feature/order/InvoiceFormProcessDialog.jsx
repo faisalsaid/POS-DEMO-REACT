@@ -151,7 +151,15 @@ function InvoiceFormProcessDialog(props) {
                         return (
                           <FormControl fullWidth color="success">
                             <InputLabel htmlFor={'cash'}>Cash</InputLabel>
-                            <OutlinedInput {...field} size="small" id="cash" startAdornment={<InputAdornment position="start">Rp.</InputAdornment>} label="Cash" type="number" />
+                            <OutlinedInput
+                              {...field}
+                              sx={{ fontSize: '2rem' }}
+                              size="small"
+                              id="cash"
+                              startAdornment={<InputAdornment position="start">Rp.</InputAdornment>}
+                              label="Cash"
+                              type="number"
+                            />
                           </FormControl>
                         );
                       }}

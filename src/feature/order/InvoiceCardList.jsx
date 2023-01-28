@@ -5,12 +5,18 @@ import currencyFormatter from 'currency-formatter';
 import { Box } from '@mui/system';
 import InvoiceDetailsDialog from './InvoiceDetailsDialog';
 
+import InvoiceFormProcessDialog from './InvoiceFormProcessDialog';
+
 const InvoiceCardList = (props) => {
   //   console.log(props);
   const { order } = props;
   //   console.log(order);
   const [openInvoiceDetails, setOpenInvoiceDetails] = useState(false);
+  const [openInvoiceProcess, setOpenInvoiceProcess] = useState(false);
   const [dialogData, setDialogData] = useState({});
+  const [tax, setTax] = useState(0.11);
+  const [taxValue, setTaxValue] = useState(tax * order.totalAmount);
+  const [finalPrice, setFinalPrice] = useState(taxValue + order.totalAmount);
 
   const heandleInvoiceDetailsOpen = () => {
     setOpenInvoiceDetails(true);
@@ -21,6 +27,19 @@ const InvoiceCardList = (props) => {
   };
   const heandleInvoiceDetailsClose = (fromDialog) => {
     setOpenInvoiceDetails(false);
+    setDialogData({});
+  };
+
+  const heandleInvoiceProcessOpen = () => {
+    setOpenInvoiceProcess(true);
+    setDialogData({
+      title: 'Process Invoice',
+      //   icon: <FastfoodIcon color="primary" />,
+    });
+  };
+
+  const openInvoiceProcessClose = () => {
+    setOpenInvoiceProcess(false);
     setDialogData({});
   };
 
@@ -46,7 +65,7 @@ const InvoiceCardList = (props) => {
               color: `${order.isPaidOff ? 'green' : 'red'}`,
             }}
           >
-            Not Pay
+            {order.isPaidOff ? 'Paid Off' : 'Not Pay'}
           </Box>
           <Button
             sx={{
@@ -96,19 +115,37 @@ const InvoiceCardList = (props) => {
             paddingBottom: '1rem',
           }}
         >
-          <Typography variant="caption" component={'p'}>
-            Total :
-          </Typography>
-          <Typography variant="h5" component={'p'}>
-            {currencyFormatter.format(order.totalAmount, { code: 'IDR' })}
-            {/* {order.totalAmount} */}
-          </Typography>
+          <Stack direction={'row'} justifyContent="space-between">
+            <Typography variant="caption" component={'p'}>
+              Total :
+            </Typography>
+            <Typography variant="body" component={'p'}>
+              {currencyFormatter.format(order.totalAmount, { code: 'IDR' })}
+            </Typography>
+          </Stack>
+          <Stack direction={'row'} justifyContent="space-between">
+            <Typography variant="caption" component={'p'}>
+              Tax 11% :
+            </Typography>
+            <Typography variant="body" component={'p'}>
+              {currencyFormatter.format(taxValue, { code: 'IDR' })}
+            </Typography>
+          </Stack>
+          <Stack>
+            <Typography variant="caption" component={'p'}>
+              Final Price :
+            </Typography>
+            <Typography align="right" variant="h6" component={'p'}>
+              {currencyFormatter.format(finalPrice, { code: 'IDR' })}
+            </Typography>
+          </Stack>
         </Stack>
-        <Button variant="contained" color="success">
+        <Button disabled={order.isPaidOff} onClick={heandleInvoiceProcessOpen} variant="contained" color="success">
           Proccess
         </Button>
       </Stack>
       <InvoiceDetailsDialog open={openInvoiceDetails} onClose={heandleInvoiceDetailsClose} data={order} />
+      <InvoiceFormProcessDialog open={openInvoiceProcess} onClose={openInvoiceProcessClose} data={order} />
     </Stack>
   );
 };

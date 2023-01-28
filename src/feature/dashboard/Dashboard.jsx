@@ -1,12 +1,20 @@
+import { useEffect } from 'react';
 import Main from '../../components/layout/Main';
 import { Typography, Stack, Divider } from '@mui/material';
 import DashboardCard from '../../components/utility/DashboardCard';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllOrder } from '../order/sliceOrder';
 
 // ICONS
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RedeemIcon from '@mui/icons-material/Redeem';
+import { useState } from 'react';
 
 const Dashboard = () => {
+  const { isLoading, data: allOrders, error } = useSelector((state) => state.order.orders);
+
+  useEffect(() => {}, []);
+
   const card1 = {
     background: 'linear-gradient(-90deg,rgba(205,233,144,1) 0%, rgba(170,203,115,1) 100%)',
     title: 'Today',
@@ -34,7 +42,7 @@ const Dashboard = () => {
     title: 'Total Earnings',
     value: {
       isCurency: true,
-      value: 4345540,
+      value: 8000,
     },
     description: 'Halo Stangger is New Era',
     icon: <AttachMoneyIcon sx={{ fontSize: '3rem' }} />,

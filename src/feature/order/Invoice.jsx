@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import Main from '../../components/layout/Main';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllOrder } from './sliceOrder';
 import { Stack, Typography, Box, Divider } from '@mui/material';
 import InvoiceCardList from './InvoiceCardList';
@@ -8,7 +8,7 @@ import InvoiceCardList from './InvoiceCardList';
 const Invoice = () => {
   const { isLoading, data: allOrders, error } = useSelector((state) => state.order.orders);
   const dispatch = useDispatch();
-  // console.log(allOrders);
+  console.log(allOrders);
 
   useEffect(() => {
     dispatch(fetchAllOrder());

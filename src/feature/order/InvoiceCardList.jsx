@@ -14,7 +14,9 @@ const InvoiceCardList = (props) => {
   const [openInvoiceDetails, setOpenInvoiceDetails] = useState(false);
   const [openInvoiceProcess, setOpenInvoiceProcess] = useState(false);
   const [dialogData, setDialogData] = useState({});
-  const tax = 0.11;
+  const [tax, setTax] = useState(0.11);
+  const [taxValue, setTaxValue] = useState(tax * order.totalAmount);
+  const [finalPrice, setFinalPrice] = useState(taxValue + order.totalAmount);
 
   const heandleInvoiceDetailsOpen = () => {
     setOpenInvoiceDetails(true);
@@ -126,7 +128,7 @@ const InvoiceCardList = (props) => {
               Tax 11% :
             </Typography>
             <Typography variant="body" component={'p'}>
-              {currencyFormatter.format(order.totalAmount * 0.11, { code: 'IDR' })}
+              {currencyFormatter.format(taxValue, { code: 'IDR' })}
             </Typography>
           </Stack>
           <Stack>
@@ -134,7 +136,7 @@ const InvoiceCardList = (props) => {
               Final Price :
             </Typography>
             <Typography align="right" variant="h6" component={'p'}>
-              {currencyFormatter.format(order.totalAmount * 0.11 + order.totalAmount, { code: 'IDR' })}
+              {currencyFormatter.format(finalPrice, { code: 'IDR' })}
             </Typography>
           </Stack>
         </Stack>

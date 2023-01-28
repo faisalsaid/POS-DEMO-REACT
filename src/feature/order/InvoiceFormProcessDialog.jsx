@@ -35,6 +35,8 @@ import CloseIcon from '@mui/icons-material/Close';
 function InvoiceFormProcessDialog(props) {
   const { open, onClose, data } = props;
   const [tax, setTax] = useState(0.11);
+  const [taxValue, setTaxValue] = useState(tax * data.totalAmount);
+  const [finalPrice, setFinalPrice] = useState(taxValue + data.totalAmount);
 
   const initialValues = {
     cash: 0,
@@ -122,7 +124,7 @@ function InvoiceFormProcessDialog(props) {
             Tax {tax * 100} {'%'} :
           </Typography>
           <Typography variant="body" component={'p'}>
-            {currencyFormatter.format(data.totalAmount * tax, { code: 'IDR' })}
+            {currencyFormatter.format(taxValue, { code: 'IDR' })}
           </Typography>
         </Stack>
         <Stack direction={'row'} justifyContent="space-between">
@@ -130,7 +132,7 @@ function InvoiceFormProcessDialog(props) {
             Final Price :
           </Typography>
           <Typography variant="h4" component={'p'}>
-            {currencyFormatter.format(data.totalAmount * tax + data.totalAmount, { code: 'IDR' })}
+            {currencyFormatter.format(finalPrice, { code: 'IDR' })}
           </Typography>
         </Stack>
       </Stack>
@@ -157,15 +159,18 @@ function InvoiceFormProcessDialog(props) {
                   </Grid>
                 </Grid>
               </Box>
+
               <Stack sx={{ padding: '1rem' }}>
-                <Stack direction={'row'} justifyContent="space-between">
-                  <Typography variant="body" component={'p'}>
-                    Customer Change :
-                  </Typography>
-                  <Typography variant="h5" component={'p'}>
-                    {currencyFormatter.format(formik.values.cash - (data.totalAmount * tax + data.totalAmount), { code: 'IDR' })}
-                  </Typography>
-                </Stack>
+                {formik.values.cash >= finalPrice && (
+                  <Stack direction={'row'} justifyContent="space-between">
+                    <Typography variant="body" component={'p'}>
+                      Customer Change :
+                    </Typography>
+                    <Typography variant="h5" component={'p'}>
+                      {currencyFormatter.format(formik.values.cash - (data.totalAmount * tax + data.totalAmount), { code: 'IDR' })}
+                    </Typography>
+                  </Stack>
+                )}
               </Stack>
               <Divider />
               <Box sx={{ padding: '.5rem 1rem' }}>
@@ -173,7 +178,8 @@ function InvoiceFormProcessDialog(props) {
                   <Button onClick={() => onClose()} sx={{ marginLeft: 'auto' }} variant="outlined" color="error">
                     Cancel
                   </Button>
-                  <Button color="success" disabled={!formik.isValid} type="submit" variant="contained">
+                  {console.log(finalPrice)}
+                  <Button color="success" disabled={formik.values.cash < finalPrice} type="submit" variant="contained">
                     {'Purchase '}
                   </Button>
                 </Stack>

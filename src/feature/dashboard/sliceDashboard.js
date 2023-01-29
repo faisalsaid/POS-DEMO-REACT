@@ -5,8 +5,10 @@ export const fetchAllOmset = createAsyncThunk('dashboard/fetchAllOmset', (data) 
   return axios.get(`${process.env.REACT_APP_API_SOURCE}order`).then((resp) => resp.data);
 });
 
+const toDay = new Date();
+
 const initialState = {
-  omset: {
+  dashboard: {
     isLoading: false,
     data: [],
     error: '',
@@ -20,17 +22,24 @@ const dashboardSlice = createSlice({
   extraReducers: (builder) => {
     // HANDLE OMSET
     builder.addCase(fetchAllOmset.pending, (state, action) => {
-      state.omset.isLoading = true;
+      state.dashboard.isLoading = true;
     });
     builder.addCase(fetchAllOmset.fulfilled, (state, { payload }) => {
-      state.omset.isLoading = false;
-      state.omset.data = payload;
-      state.omset.error = '';
+      console.log({ payload });
+      state.dashboard.isLoading = false;
+      state.dashboard.data = {
+        totalEarnings: payload
+          .filter((data) => data.isPaidOff === true)
+          .map((data) => data.finalPrice)
+          .reduce((acc, curr) => acc + curr),
+        saleItems: payload.map((data) => data.listOrder.map((data) => data.quantity).reduce((acc, curr) => acc + curr)).reduce((acc, curr) => acc + curr),
+      };
+      state.dashboard.error = '';
     });
     builder.addCase(fetchAllOmset.rejected, (state, action) => {
-      state.omset.isLoading = false;
-      state.omset.data = [];
-      state.omset.error = action.error.message;
+      state.dashboard.isLoading = false;
+      state.dashboard.data = [];
+      state.dashboard.error = action.error.message;
     });
     // HANDLE OMSET END
   },

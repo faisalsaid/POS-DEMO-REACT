@@ -10,8 +10,10 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RedeemIcon from '@mui/icons-material/Redeem';
 
 const Dashboard = () => {
-  const { isLoading, data: allOrders, error } = useSelector((state) => state.order.orders);
   const dispatch = useDispatch();
+  const { data: dashboardData, isLoading, error } = useSelector((state) => state.dashboard.dashboard);
+  console.log(dashboardData);
+
   useEffect(() => {
     dispatch(fetchAllOmset());
   }, []);
@@ -32,7 +34,7 @@ const Dashboard = () => {
     title: 'Sale Items',
     value: {
       isCurency: false,
-      value: 80,
+      value: dashboardData.saleItems,
     },
     description: 'Halo Stangger is New Era',
     icon: <RedeemIcon sx={{ fontSize: '3rem' }} />,
@@ -43,7 +45,7 @@ const Dashboard = () => {
     title: 'Total Earnings',
     value: {
       isCurency: true,
-      value: 8000,
+      value: dashboardData.totalEarnings,
     },
     description: 'Halo Stangger is New Era',
     icon: <AttachMoneyIcon sx={{ fontSize: '3rem' }} />,

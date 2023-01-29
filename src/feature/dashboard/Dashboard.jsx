@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Main from '../../components/layout/Main';
 import { Typography, Stack, Divider } from '@mui/material';
 import DashboardCard from '../../components/utility/DashboardCard';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllOrder } from '../order/sliceOrder';
+import { fetchAllOmset } from './sliceDashboard';
 
 // ICONS
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import RedeemIcon from '@mui/icons-material/Redeem';
-import { useState } from 'react';
 
 const Dashboard = () => {
   const { isLoading, data: allOrders, error } = useSelector((state) => state.order.orders);
-
-  useEffect(() => {}, []);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchAllOmset());
+  }, []);
 
   const card1 = {
     background: 'linear-gradient(-90deg,rgba(205,233,144,1) 0%, rgba(170,203,115,1) 100%)',

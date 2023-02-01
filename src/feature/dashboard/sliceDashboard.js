@@ -25,9 +25,10 @@ const dashboardSlice = createSlice({
       state.dashboard.isLoading = true;
     });
     builder.addCase(fetchAllOmset.fulfilled, (state, { payload }) => {
-      console.log({ payload });
+      // console.log({ payload });
       state.dashboard.isLoading = false;
       state.dashboard.data = {
+        barData: payload.filter((data) => data.isPaidOff === true).map((data) => ({ customer: data.customer, finalPrice: data.finalPrice })),
         totalEarnings: payload
           .filter((data) => data.isPaidOff === true)
           .map((data) => data.finalPrice)
